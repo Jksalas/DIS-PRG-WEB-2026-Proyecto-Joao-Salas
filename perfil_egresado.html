@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Perfil del egresado del Sistema de Gestión de Egresados de la Universidad CENFOTEC.">
+    <title>Perfil del Egresado - Sistema de Gestión de Egresados | CENFOTEC</title>
+    <link rel="stylesheet" href="css/estilos_base.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header>
+        <nav aria-label="Navegación principal">
+            <div>
+                <a href="pagina_inicio.html">
+                    <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
+                </a>
+            </div>
+            <ul>
+                <li><a href="pagina_inicio.html">Inicio</a></li>
+                <li><a href="perfil_egresado.html">Perfil</a></li>            
+                <li><a href="login.html">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <!-- ENCABEZADO DEL PERFIL -->
+        <section>
+            <h1>Perfil del egresado</h1>
+
+            <p>
+                En esta sección podrás consultar tu información personal,
+                académica y profesional, así como mantener actualizada tu
+                información profesional dentro del Sistema de Gestión de
+                Egresados de la Universidad CENFOTEC.
+            </p>
+        </section>
+
+        <!-- INFORMACIÓN PERSONAL -->
+        <section>
+            <h2>Información personal</h2>
+
+            <div>
+                <p><strong>Identificación:</strong> 123456789</p>
+                <p><strong>Nombre completo:</strong> Juan Carlos Rodríguez López</p>
+                <p><strong>Correo institucional:</strong> jcrodriguez@cenfotec.ac.cr</p>
+                <p><strong>Teléfono:</strong> +506 8765-4321</p>
+            </div>
+        </section>
+
+        <!-- INFORMACIÓN ACADÉMICA -->
+        <section>
+            <h2>Información académica</h2>
+
+            <article>
+                <h3>Título académico</h3>
+
+                <p><strong>Tipo de programa:</strong> Bachillerato</p>
+                <p><strong>Carrera:</strong> Ingeniería en Sistemas Computacionales</p>
+                <p><strong>Escuela académica:</strong> Escuela de Ingeniería y Tecnología</p>
+                <p><strong>Año de graduación:</strong> 2022</p>
+                <p><strong>Estado del título:</strong> Titulado</p>
+            </article>
+        </section>
+
+        <!-- INFORMACIÓN PROFESIONAL -->
+        <section>
+            <h2>Información profesional</h2>
+
+            <div>
+                <p><strong>Empresa actual:</strong> TechSolutions Costa Rica S.A.</p>
+
+                <p><strong>Puesto:</strong> Desarrollador Senior Full Stack</p>
+
+                <p><strong>Área profesional:</strong> Desarrollo de Software</p>
+
+                <p>
+                    <strong>Perfil de LinkedIn:</strong>
+                    <a href="https://linkedin.com/in/jcrodriguez" target="_blank" rel="noopener noreferrer">
+                        linkedin.com/in/jcrodriguez
+                    </a>
+                </p>
+
+                <p>
+                    <strong>Portafolio profesional:</strong>
+                    <a href="https://jcrodriguez.dev" target="_blank" rel="noopener noreferrer">
+                        jcrodriguez.dev
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE ACTUALIZACIÓN -->
+        <section>
+            <h2>Actualizar información profesional</h2>
+
+            <form action="#" method="post">
+
+                <fieldset>
+
+                    <legend>Formulario de actualización</legend>
+
+                    <div>
+                        <label for="email-personal">Correo personal</label>
+
+                        <input type="email" id="email-personal" name="email_personal" placeholder="usuario@correo.com"
+                            required autocomplete="email">
+                    </div>
+
+                    <div>
+                        <label for="telefono">Teléfono</label>
+
+                        <input type="tel" id="telefono" name="telefono" placeholder="+506 8765-4321" required
+                            autocomplete="tel">
+                    </div>
+
+                    <div>
+                        <label for="empresa">Empresa actual</label>
+
+                        <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa" required
+                            autocomplete="organization">
+                    </div>
+
+                    <div>
+                        <label for="puesto">Puesto actual</label>
+
+                        <input type="text" id="puesto" name="puesto" placeholder="Puesto actual" required
+                            autocomplete="organization-title">
+                    </div>
+
+                    <div>
+                        <label for="area-profesional">Área profesional</label>
+
+                        <input type="text" id="area-profesional" name="area_profesional" placeholder="Área profesional"
+                            required>
+                    </div>
+                    <div>
+                        <label for="linkedin">Perfil de LinkedIn</label>
+
+                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/usuario"
+                            autocomplete="url">
+                    </div>
+
+                    <div>
+                        <label for="portafolio">Portafolio profesional</label>
+
+                        <input type="url" id="portafolio" name="portafolio" placeholder="https://miportafolio.com"
+                            autocomplete="url">
+                    </div>
+
+                    <button type="submit">
+                        Actualizar información
+                    </button>
+
+                </fieldset>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <section>
+            <img src="assets/logo_cenfotec.png" alt="" aria-hidden="true" class="logo-footer">
+        </section>
+
+        <section>
+            <h3>Contacto</h3>
+
+            <p>
+                Correo:
+                <a href="mailto:egresados@cenfotec.ac.cr">
+                    egresados@cenfotec.ac.cr
+                </a>
+            </p>
+
+            <p>
+                Teléfono:
+                <a href="tel:+50622345678">
+                    +506 2234-5678
+                </a>
+            </p>
+        </section>
+
+        <section>
+            <p>&copy; 2026 Universidad CENFOTEC. Todos los derechos reservados.</p>
+        </section>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Registro manual de egresados del Sistema de Gestión de Egresados de la Universidad CENFOTEC.">
+    <title>Gestión de Egresados - Sistema de Gestión de Egresados | CENFOTEC</title>
+    <link rel="stylesheet" href="css/estilos_base.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header>
+        <nav aria-label="Navegación principal">
+            <div>
+                <a href="pagina_inicio.html">
+                    <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
+                </a>
+            </div>
+
+            <ul>
+                <li><a href="pagina_inicio.html">Inicio</a></li>
+                <li><a href="gestion_egresado.html">Gestión de Egresados</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <!-- ENCABEZADO DE LA PÁGINA -->
+        <section>
+            <h1>Gestión de Egresados</h1>
+
+            <p>
+                En esta sección puedes registrar nuevos egresados en el sistema.
+                Completa el formulario con la información del egresado.
+            </p>
+        </section>
+
+        <!-- FORMULARIO DE REGISTRO DE EGRESADOS -->
+        <section>
+            <h2>Registro de Egresados</h2>
+
+            <form action="#" method="post">
+
+                <fieldset>
+
+                    <legend>Información del egresado</legend>
+
+                    <div>
+                        <label for="identificacion">Identificación</label>
+
+                        <input
+                            type="text"
+                            id="identificacion"
+                            name="identificacion"
+                            placeholder="Número de identificación"
+                            required
+                            autocomplete="off">
+                    </div>
+
+                    <div>
+                        <label for="nombre-completo">Nombre completo</label>
+
+                        <input
+                            type="text"
+                            id="nombre-completo"
+                            name="nombre_completo"
+                            placeholder="Nombre y apellidos"
+                            required
+                            autocomplete="name">
+                    </div>
+
+                    <div>
+                        <label for="correo-electronico">Correo electrónico</label>
+
+                        <input
+                            type="email"
+                            id="correo-electronico"
+                            name="correo_electronico"
+                            placeholder="usuario@correo.com"
+                            required
+                            autocomplete="email">
+                    </div>
+
+                    <div>
+                        <label for="telefono">Teléfono</label>
+
+                        <input
+                            type="tel"
+                            id="telefono"
+                            name="telefono"
+                            placeholder="+506 8765-4321"
+                            required
+                            autocomplete="tel">
+                    </div>
+
+                    <div>
+                        <label for="fecha-registro">Fecha de registro</label>
+
+                        <input
+                            type="date"
+                            id="fecha-registro"
+                            name="fecha_registro"
+                            required>
+                    </div>
+
+                    <div>
+                        <label for="lugar-trabajo">Lugar de trabajo</label>
+
+                        <input
+                            type="text"
+                            id="lugar-trabajo"
+                            name="lugar_trabajo"
+                            placeholder="Nombre de la empresa"
+                            required
+                            autocomplete="organization">
+                    </div>
+
+                    <button type="submit">
+                        Registrar egresado
+                    </button>
+
+                </fieldset>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <section>
+            <img src="assets/logo_cenfotec.png" alt="" aria-hidden="true">
+        </section>
+
+        <section>
+            <h3>Contacto</h3>
+
+            <p>
+                Correo:
+                <a href="mailto:egresados@cenfotec.ac.cr">
+                    egresados@cenfotec.ac.cr
+                </a>
+            </p>
+
+            <p>
+                Teléfono:
+                <a href="tel:+50622345678">
+                    +506 2234-5678
+                </a>
+            </p>
+        </section>
+
+        <section>
+            <p>&copy; 2026 Universidad CENFOTEC. Todos los derechos reservados.</p>
+        </section>
+
+    </footer>
+
+</body>
+
+</html>
