@@ -94,7 +94,7 @@ nav a:hover {
    SECCIONES GENERALES
 ========================= */
 section {
-    padding: 60px 40px;
+    padding: 20px 20px;
     max-width:1200px;
     margin:auto;
 }
@@ -156,3 +156,105 @@ footer img {
     height: 100px;
 }
 
+/* =========================
+   LISTAS DE DEFINICIÓN
+========================= */
+dl {
+    margin-top: 20px;
+}
+
+dt,
+dd {
+    display: inline;
+}
+
+dt {
+    font-weight: 700;
+    color: var(--text);
+}
+
+dt::after {
+    content: ": ";
+}
+
+dd {
+    margin: 0;
+}
+
+dd::after {
+    content: "";
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   TABLAS
+========================= */
+
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+thead {
+    background: var(--primary);
+    color: var(--white);
+}
+
+th,
+td {
+    padding: 18px 20px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: var(--light-bg);
+}
+
+/* Enlaces de acciones */
+
+td a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 18px;
+}
+
+td a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* =========================
+   PERFIL DEL EGRESADO
+========================= */
+
+.perfil-egresado section {
+    background-color: var(--light-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
