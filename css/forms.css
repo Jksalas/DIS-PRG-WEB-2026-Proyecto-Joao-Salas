@@ -67,7 +67,7 @@ textarea {
 
 input,
 select {
-    height: 68px;
+    padding: 20px 24px;
 }
 
 /* =========================
