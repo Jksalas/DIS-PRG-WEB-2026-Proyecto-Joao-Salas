@@ -17,16 +17,19 @@
     <header>
         <nav aria-label="Navegación principal">
             <div>
-                <a href="pagina_inicio.html">
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
                     <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
                 </a>
             </div>
 
             <ul>
                 <li><a href="pagina_inicio.html">Inicio</a></li>
-                <li><a href="gestion_egresado.html">Gestión de Egresados</a></li>
+                <li><a href="gestion_egresado.html" aria-current="page">Gestión de egresados</a></li>
+                <li><a href="gestion_carreras.html">Gestión de carreras</a></li>
+                <li><a href="login.html">Cerrar sesión</a></li>
             </ul>
         </nav>
+
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
@@ -55,71 +58,42 @@
                     <div>
                         <label for="identificacion">Identificación</label>
 
-                        <input
-                            type="text"
-                            id="identificacion"
-                            name="identificacion"
-                            placeholder="Número de identificación"
-                            required
-                            autocomplete="off">
+                        <input type="text" id="identificacion" name="identificacion"
+                            placeholder="Número de identificación" required autocomplete="off">
                     </div>
 
                     <div>
                         <label for="nombre-completo">Nombre completo</label>
 
-                        <input
-                            type="text"
-                            id="nombre-completo"
-                            name="nombre_completo"
-                            placeholder="Nombre y apellidos"
-                            required
-                            autocomplete="name">
+                        <input type="text" id="nombre-completo" name="nombre_completo" placeholder="Nombre y apellidos"
+                            required autocomplete="name">
                     </div>
 
                     <div>
                         <label for="correo-electronico">Correo electrónico</label>
 
-                        <input
-                            type="email"
-                            id="correo-electronico"
-                            name="correo_electronico"
-                            placeholder="usuario@correo.com"
-                            required
-                            autocomplete="email">
+                        <input type="email" id="correo-electronico" name="correo_electronico"
+                            placeholder="usuario@correo.com" required autocomplete="email">
                     </div>
 
                     <div>
                         <label for="telefono">Teléfono</label>
 
-                        <input
-                            type="tel"
-                            id="telefono"
-                            name="telefono"
-                            placeholder="+506 8765-4321"
-                            required
+                        <input type="tel" id="telefono" name="telefono" placeholder="+506 8765-4321" required
                             autocomplete="tel">
                     </div>
 
                     <div>
                         <label for="fecha-registro">Fecha de registro</label>
 
-                        <input
-                            type="date"
-                            id="fecha-registro"
-                            name="fecha_registro"
-                            required>
+                        <input type="date" id="fecha-registro" name="fecha_registro" required>
                     </div>
 
                     <div>
                         <label for="lugar-trabajo">Lugar de trabajo</label>
 
-                        <input
-                            type="text"
-                            id="lugar-trabajo"
-                            name="lugar_trabajo"
-                            placeholder="Nombre de la empresa"
-                            required
-                            autocomplete="organization">
+                        <input type="text" id="lugar-trabajo" name="lugar_trabajo" placeholder="Nombre de la empresa"
+                            required autocomplete="organization">
                     </div>
 
                     <button type="submit">
@@ -130,6 +104,8 @@
 
             </form>
         </section>
+
+        <div class="section-separador"></div>
 
     </main>
 

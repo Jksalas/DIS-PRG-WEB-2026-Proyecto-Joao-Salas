@@ -17,14 +17,16 @@
     <header>
         <nav aria-label="Navegación principal">
             <div>
-                <a href="pagina_inicio.html">
-                    <img src="assets/logo_cenfotec1.png" alt="" aria-hidden="true" class="logo-header">
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
+                    <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
                 </a>
             </div>
 
             <ul>
                 <li><a href="pagina_inicio.html">Inicio</a></li>
-                <li><a href="gestion_carreras.html">Gestión de Carreras</a></li>
+                <li><a href="gestion_egresado.html">Gestión de egresados</a></li>
+                <li><a href="gestion_carreras.html" aria-current="page">Gestión de carreras</a></li>
+                <li><a href="login.html">Cerrar sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -55,12 +57,8 @@
                     <div>
                         <label for="nombre-carrera">Nombre de la carrera</label>
 
-                        <input
-                            type="text"
-                            id="nombre-carrera"
-                            name="nombre_carrera"
-                            placeholder="Ingeniería en Sistemas Computacionales"
-                            required
+                        <input type="text" id="nombre-carrera" name="nombre_carrera"
+                            placeholder="Ingeniería en Sistemas Computacionales" required
                             autocomplete="organization-title">
                     </div>
 
@@ -72,6 +70,44 @@
 
             </form>
         </section>
+
+        <section>
+            <h2>Carreras registradas</h2>
+
+            <table>
+                <caption>Listado de carreras académicas</caption>
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Ingeniería en Sistemas Computacionales</td>
+                        <td>
+                            <a href="#">Consultar</a>
+                            <a href="#">Modificar</a>
+                            <a href="#">Eliminar</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Ingeniería Industrial</td>
+                        <td>
+                            <a href="#">Consultar</a>
+                            <a href="#">Modificar</a>
+                            <a href="#">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+        <div class="section-separador"></div>
 
     </main>
 

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Inicio de sesión del Sistema de Gestión de Egresados de la Universidad CENFOTEC.">
+    <meta name="description" content="Inicio de sesión del Sistema de Gestión de Egresados de la Universidad CENFOTEC.">
     <title>Iniciar sesión - Sistema de Gestión de Egresados | CENFOTEC</title>
     <link rel="stylesheet" href="css/estilos_base.css">
     <link rel="stylesheet" href="css/forms.css">
@@ -17,16 +16,17 @@
     <header>
         <nav aria-label="Navegación principal">
             <div>
-                <a href="pagina_inicio.html">
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
                     <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
                 </a>
             </div>
 
             <ul>
                 <li><a href="pagina_inicio.html">Inicio</a></li>
-                <li><a href="login.html">Iniciar sesión</a></li>
+                <li><a href="login.html" aria-current="page">Iniciar sesión</a></li>
             </ul>
         </nav>
+
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
@@ -44,42 +44,29 @@
 
         <!-- FORMULARIO DE INICIO DE SESIÓN -->
         <section>
-            <form action="#" method="post">
+            <form>
                 <fieldset>
                     <legend>Inicio de sesión</legend>
 
                     <div>
                         <label for="email">Correo electrónico</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="usuario@correo.com"
-                            required
+                        <input type="email" id="email" name="email" placeholder="usuario@cenfotec.ac.cr" required
                             autocomplete="email">
                     </div>
 
                     <div>
                         <label for="password">Contraseña</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Ingrese su contraseña"
-                            required
-                            autocomplete="current-password">
+                        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña"
+                            required autocomplete="current-password">
                     </div>
 
                     <button type="submit">Ingresar</button>
                 </fieldset>
             </form>
 
-            <p>
-                <a href="pagina_inicio.html">
-                    Volver a la página de inicio
-                </a>
-            </p>
         </section>
+
+        <div class="section-separador"></div>
 
     </main>
 

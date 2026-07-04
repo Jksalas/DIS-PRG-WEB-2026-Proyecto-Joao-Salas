@@ -9,6 +9,7 @@
     <title>CENFOTEC - Sistema de Gestión de Egresados</title>
     <link rel="stylesheet" href="css/estilos_base.css">
     <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/tarjetas.css">
 </head>
 
 <body>
@@ -17,7 +18,7 @@
     <header>
         <nav aria-label="Navegación principal">
             <div>
-                <a href="pagina_inicio.html">
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
                     <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
                 </a>
             </div>
@@ -25,7 +26,6 @@
             <ul>
                 <li><a href="pagina_inicio.html">Inicio</a></li>
                 <li><a href="login.html">Iniciar sesión</a></li>
-                <li><a href="#programa">Programa de egresados</a></li>
                 <li><a href="#acceso-sistema">Sistema</a></li>
                 <li><a href="#actividades">Actividades</a></li>
                 <li><a href="#contacto">Contacto</a></li>
@@ -39,9 +39,15 @@
         <!-- PRINCIPAL -->
         <section id="inicio">
             <h1>Bienvenido al Sistema de Gestión de Egresados</h1>
+            <p>
+                Conecta con la comunidad de egresados de la Universidad CENFOTEC
+            </p>
 
             <p>
-                Conecta con la comunidad de egresados de la Universidad CENFOTEC.
+                El Sistema de Gestión de Egresados es una plataforma diseñada para
+                fortalecer la relación entre la Universidad CENFOTEC y su comunidad
+                de graduados, facilitando el acceso a actividades institucionales,
+                programas de mentoría y oportunidades laborales
             </p>
         </section>
 
@@ -49,23 +55,8 @@
             <img src="assets/egresados1.png" alt="" aria-hidden="true" class="hero-image">
         </div>
 
-        <!-- PROGRAMA DE EGRESADOS -->
-        <section id="programa">
-            <h2>Programa de Egresados CENFOTEC</h2>
-
-            <p>
-                El Sistema de Gestión de Egresados es una plataforma diseñada para
-                fortalecer la relación entre la Universidad CENFOTEC y su comunidad
-                de graduados, facilitando el acceso a actividades institucionales,
-                programas de mentoría y oportunidades laborales.
-            </p>
-
-        </section>
-
-
         <section id="acceso-sistema">
             <h2>Acceso a las páginas del sistema</h2>
-
             <ul>
                 <li><a href="login.html">Iniciar sesión</a></li>
                 <li><a href="perfil_egresado.html">Perfil de egresado</a></li>
@@ -74,10 +65,11 @@
             </ul>
         </section>
 
+        <div class="section-separador"></div>
+
         <!-- BENEFICIOS -->
         <section id="beneficios">
-            <h2>Beneficios de ser parte de nuestra comunidad</h2>
-
+            <h2 class="titulo-centrado">Beneficios de ser parte de nuestra comunidad</h2>
             <div>
 
                 <article>
@@ -117,7 +109,7 @@
 
         <!-- ACTIVIDADES DESTACADAS -->
         <section id="actividades">
-            <h2>Actividades destacadas</h2>
+            <h2 class="titulo-centrado">Actividades destacadas </h2>
 
             <div>
 
@@ -136,12 +128,10 @@
 
                 <article>
                     <h3>Conferencia de Innovación Tecnológica</h3>
-
                     <p>
                         Conferencia dirigida a egresados interesados en conocer las
                         principales tendencias tecnológicas.
                     </p>
-
                     <time datetime="2026-10-08">
                         8 de octubre de 2026
                     </time>
@@ -149,6 +139,8 @@
 
             </div>
         </section>
+
+        <div class="section-separador"></div>
 
     </main>
 
@@ -159,23 +151,22 @@
             <img src="assets/logo_cenfotec.png" alt="" aria-hidden="true">
         </section>
 
-
         <section>
             <h3>Contacto</h3>
 
-            <p>
-                Correo:
-                <a href="mailto:egresados@cenfotec.ac.cr">
-                    egresados@cenfotec.ac.cr
-                </a>
-            </p>
+                <p>
+                    Correo:
+                    <a href="mailto:egresados@cenfotec.ac.cr">
+                        egresados@cenfotec.ac.cr
+                    </a>
+                </p>
 
-            <p>
-                Teléfono:
-                <a href="tel:+50622345678">
-                    +506 2234-5678
-                </a>
-            </p>
+                <p>
+                    Teléfono:
+                    <a href="tel:+50622345678">
+                        +506 2234-5678
+                    </a>
+                </p>
         </section>
 
         <section>

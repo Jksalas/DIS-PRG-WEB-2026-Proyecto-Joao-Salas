@@ -17,13 +17,14 @@
     <header>
         <nav aria-label="Navegación principal">
             <div>
-                <a href="pagina_inicio.html">
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
                     <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
                 </a>
             </div>
+
             <ul>
                 <li><a href="pagina_inicio.html">Inicio</a></li>
-                <li><a href="perfil_egresado.html">Perfil</a></li>            
+                <li><a href="perfil_egresado.html" aria-current="page">Perfil</a></li>
                 <li><a href="login.html">Cerrar sesión</a></li>
             </ul>
         </nav>
@@ -48,54 +49,72 @@
         <section>
             <h2>Información personal</h2>
 
-            <div>
-                <p><strong>Identificación:</strong> 123456789</p>
-                <p><strong>Nombre completo:</strong> Juan Carlos Rodríguez López</p>
-                <p><strong>Correo institucional:</strong> jcrodriguez@cenfotec.ac.cr</p>
-                <p><strong>Teléfono:</strong> +506 8765-4321</p>
-            </div>
-        </section>
+            <dl>
+                <dt>Identificación</dt>
+                <dd>123456789</dd>
 
+                <dt>Nombre completo</dt>
+                <dd>Juan Carlos Rodríguez López</dd>
+
+                <dt>Correo institucional</dt>
+                <dd>jcrodriguez@cenfotec.ac.cr</dd>
+
+                <dt>Teléfono</dt>
+                <dd>+506 8765-4321</dd>
+            </dl>
+        </section>
         <!-- INFORMACIÓN ACADÉMICA -->
         <section>
             <h2>Información académica</h2>
 
-            <article>
-                <h3>Título académico</h3>
+            <h3>Título académico</h3>
 
-                <p><strong>Tipo de programa:</strong> Bachillerato</p>
-                <p><strong>Carrera:</strong> Ingeniería en Sistemas Computacionales</p>
-                <p><strong>Escuela académica:</strong> Escuela de Ingeniería y Tecnología</p>
-                <p><strong>Año de graduación:</strong> 2022</p>
-                <p><strong>Estado del título:</strong> Titulado</p>
-            </article>
+            <dl>
+                <dt>Tipo de programa</dt>
+                <dd>Bachillerato</dd>
+
+                <dt>Carrera</dt>
+                <dd>Ingeniería en Sistemas Computacionales</dd>
+
+                <dt>Escuela académica</dt>
+                <dd>Escuela de Ingeniería y Tecnología</dd>
+
+                <dt>Año de graduación</dt>
+                <dd>2022</dd>
+
+                <dt>Estado del título</dt>
+                <dd>Titulado</dd>
+            </dl>
         </section>
 
         <!-- INFORMACIÓN PROFESIONAL -->
         <section>
             <h2>Información profesional</h2>
 
-            <div>
-                <p><strong>Empresa actual:</strong> TechSolutions Costa Rica S.A.</p>
+            <dl>
+                <dt>Empresa actual</dt>
+                <dd>TechSolutions Costa Rica S.A.</dd>
 
-                <p><strong>Puesto:</strong> Desarrollador Senior Full Stack</p>
+                <dt>Puesto</dt>
+                <dd>Desarrollador Senior Full Stack</dd>
 
-                <p><strong>Área profesional:</strong> Desarrollo de Software</p>
+                <dt>Área profesional</dt>
+                <dd>Desarrollo de Software</dd>
 
-                <p>
-                    <strong>Perfil de LinkedIn:</strong>
+                <dt>Perfil de LinkedIn</dt>
+                <dd>
                     <a href="https://linkedin.com/in/jcrodriguez" target="_blank" rel="noopener noreferrer">
                         linkedin.com/in/jcrodriguez
                     </a>
-                </p>
+                </dd>
 
-                <p>
-                    <strong>Portafolio profesional:</strong>
+                <dt>Portafolio profesional</dt>
+                <dd>
                     <a href="https://jcrodriguez.dev" target="_blank" rel="noopener noreferrer">
                         jcrodriguez.dev
                     </a>
-                </p>
-            </div>
+                </dd>
+            </dl>
         </section>
 
         <!-- FORMULARIO DE ACTUALIZACIÓN -->
@@ -111,8 +130,8 @@
                     <div>
                         <label for="email-personal">Correo personal</label>
 
-                        <input type="email" id="email-personal" name="email_personal" placeholder="usuario@correo.com"
-                            required autocomplete="email">
+                        <input type="email" id="email-personal" name="email_personal"
+                            placeholder="usuario@cenfotec.ac.cr" required autocomplete="email">
                     </div>
 
                     <div>
@@ -164,6 +183,8 @@
 
             </form>
         </section>
+
+        <div class="section-separador"></div>
 
     </main>
 
