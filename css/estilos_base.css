@@ -1,0 +1,260 @@
+/* =========================
+   RESET BÁSICO
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background-color: var(--white);
+    line-height:1.5;
+}
+
+/* =========================
+   VARIABLES
+========================= */
+:root {
+    --primary: #0056b3;
+    --primary-dark: #003f88;
+    --light-bg: #f2f4f7;
+    --section-gray: #e6e6e6;
+    --text: #222;
+    --white: #fff;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+    background-color: var(--primary);
+    border-bottom: 1px solid #ddd;
+    color: var(--white);
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 40px;
+    gap: 15px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #e0e0e0;
+}
+
+.logo-header {
+    width: 100px;
+    height: 100px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+.hero-image {
+    width: 100%;
+    max-height: 150px;
+    display: block;
+    object-fit:cover;
+}
+
+
+#inicio p:first-of-type{
+    font-size:1.2rem;
+    color:var(--primary);
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+#inicio p:last-of-type{
+    color:var(--text);
+    font-size:1rem;
+    line-height:1.8;
+    max-width:1200px;
+}
+
+/* =========================
+   SECCIONES GENERALES
+========================= */
+section {
+    padding: 30px 30px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-separador {
+    height: 50px;
+    background-color:var(--primary);
+}
+
+.titulo-centrado{
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================
+   BOTONES
+========================= */
+button, .btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+button:hover, .btn:hover {
+    background-color: var(--primary-dark);
+}
+
+
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background-color: var(--light-bg);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+footer section {
+    padding: 10px 0;
+}
+
+footer img {
+    display: block;
+    margin: 0 auto;
+}
+
+.logo-footer {
+    width: 100px;
+    height: 100px;
+}
+
+/* =========================
+   LISTAS DE DEFINICIÓN
+========================= */
+dl {
+    margin-top: 20px;
+}
+
+dt,
+dd {
+    display: inline;
+}
+
+dt {
+    font-weight: 700;
+    color: var(--text);
+}
+
+dt::after {
+    content: ": ";
+}
+
+dd {
+    margin: 0;
+}
+
+dd::after {
+    content: "";
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   TABLAS
+========================= */
+
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+thead {
+    background: var(--primary);
+    color: var(--white);
+}
+
+th,
+td {
+    padding: 18px 20px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: var(--light-bg);
+}
+
+/* Enlaces de acciones */
+
+td a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 18px;
+}
+
+td a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* =========================
+   PERFIL DEL EGRESADO
+========================= */
+
+.perfil-egresado section {
+    background-color: var(--light-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}

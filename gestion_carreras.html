@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Registro de carreras académicas del Sistema de Gestión de Egresados de la Universidad CENFOTEC.">
+    <title>Gestión de Carreras - Sistema de Gestión de Egresados | CENFOTEC</title>
+    <link rel="stylesheet" href="css/estilos_base.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header>
+        <nav aria-label="Navegación principal">
+            <div>
+                <a href="pagina_inicio.html" aria-label="Ir a la página de inicio">
+                    <img src="assets/logo_cenfotec1.png" alt="Universidad CENFOTEC" class="logo-header">
+                </a>
+            </div>
+
+            <ul>
+                <li><a href="pagina_inicio.html">Inicio</a></li>
+                <li><a href="gestion_egresado.html">Gestión de egresados</a></li>
+                <li><a href="gestion_carreras.html" aria-current="page">Gestión de carreras</a></li>
+                <li><a href="login.html">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+
+        <!-- ENCABEZADO DE LA PÁGINA -->
+        <section>
+            <h1>Gestión de Carreras</h1>
+            <p>
+                En esta sección puedes registrar nuevas carreras académicas en el
+                sistema. Completa el formulario con la información de la carrera
+                académica que deseas registrar.
+            </p>
+        </section>
+
+        <div class="section-separador"></div>
+
+        <!-- FORMULARIO DE CREACIÓN DE CARRERA -->
+        <section>
+            <h2>Creación de Carrera</h2>
+
+            <form action="#" method="post">
+
+                <fieldset>
+
+                    <legend>Información de la carrera</legend>
+
+                    <div>
+                        <label for="nombre-carrera">Nombre de la carrera</label>
+
+                        <input type="text" id="nombre-carrera" name="nombre_carrera"
+                            placeholder="Ingeniería en Sistemas Computacionales" required
+                            autocomplete="organization-title">
+                    </div>
+
+                    <button type="submit">
+                        Registrar carrera
+                    </button>
+
+                </fieldset>
+
+            </form>
+        </section>
+
+        <section>
+            <h2>Carreras registradas</h2>
+
+            <table>
+                <caption>Listado de carreras académicas</caption>
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Ingeniería en Sistemas Computacionales</td>
+                        <td>
+                            <a href="#">Consultar</a>
+                            <a href="#">Modificar</a>
+                            <a href="#">Eliminar</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Ingeniería en Electrónica</td>
+                        <td>
+                            <a href="#">Consultar</a>
+                            <a href="#">Modificar</a>
+                            <a href="#">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+        <div class="section-separador"></div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <section>
+            <img src="assets/logo_cenfotec.png" alt="" aria-hidden="true" class="logo-footer">
+        </section>
+
+        <section>
+            <h3>Contacto</h3>
+
+            <p>
+                Correo:
+                <a href="mailto:egresados@cenfotec.ac.cr">
+                    egresados@cenfotec.ac.cr
+                </a>
+            </p>
+
+            <p>
+                Teléfono:
+                <a href="tel:+50622345678">
+                    +506 2234-5678
+                </a>
+            </p>
+        </section>
+
+        <section>
+            <p>&copy; 2026 Universidad CENFOTEC. Todos los derechos reservados.</p>
+        </section>
+
+    </footer>
+
+</body>
+
+</html>
