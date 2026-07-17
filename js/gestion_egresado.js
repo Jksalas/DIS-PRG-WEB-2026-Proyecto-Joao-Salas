@@ -160,7 +160,7 @@ function validarCorreoElectronico(
     }
 
     if (!regexCorreo.test(correoElectronico)) {
-        return "El correo electrónico no tiene un formato válido.";
+        return "El correo electrónico debe tener un formato válido (Ej: usuario@correo.com).";
     }
 
     return null;
@@ -209,7 +209,7 @@ function validarLugarTrabajo(
     }
 
     if (!regexLugarTrabajo.test(lugarTrabajo)) {
-        return "El lugar de trabajo no tiene un formato válido.";
+        return "El lugar de trabajo no tiene un formato válido, de debe contener solo letras, números y espacios.";
     }
 
     return null;
