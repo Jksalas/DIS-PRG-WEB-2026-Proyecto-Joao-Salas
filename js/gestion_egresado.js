@@ -4,9 +4,6 @@ const formulario = document.querySelector("form");
 console.log("El archivo JavaScript se cargó correctamente.");
 console.log("Formulario encontrado:", formulario);
 
-const botonRegistrar = document.getElementById("btnRegistrar");
-
-
 // Bloquea el envío del formulario al presionar Enter
 formulario.addEventListener("keydown", function(event) {
 
@@ -63,9 +60,6 @@ formulario.addEventListener("submit", function(event) {
     }
     console.log("Correo electrónico válido.");
 
-    // Imprimir fecha de registro en la consola
-    console.log("Fecha de registro:", fechaRegistro);
-
     // Validar teléfono
     mensajeError = validarTelefono(telefono);
 
@@ -82,8 +76,8 @@ formulario.addEventListener("submit", function(event) {
         swalAlertError(mensajeError);
         return;
     }
-
-    console.log("Fecha de registro válida.");
+    // Imprimir fecha de registro en la consola
+    console.log("Fecha de registro:", fechaRegistro);
 
     // Validar lugar de trabajo
     mensajeError = validarLugarTrabajo(lugarTrabajo);
@@ -93,6 +87,9 @@ formulario.addEventListener("submit", function(event) {
         return;
     }
     console.log("Lugar de trabajo válido.");
+
+    console.log("Formulario validado correctamente.");
+    swalAlertPass();
 
 });
 
@@ -111,6 +108,17 @@ function swalAlertError(mensaje) {
         confirmButtonColor: "#0056b3"
     });
 }
+
+function swalAlertPass() {
+    Swal.fire({
+        title: "Registro válido",
+        text: "La información del egresado fue validada correctamente.",
+        icon: "success",
+        confirmButtonColor: "#0056b3"
+    });
+}
+
+console.log("Formulario validado correctamente.");
 
 // Función para validar la identificación
 function validarIdentificacion(identificacion) {
@@ -134,7 +142,7 @@ function validarNombreCompleto(
     nombreCompleto
 ) {
     console.log("Iniciando validación de nombre completo...");
-    const regexNombreCompleto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+ [A-Za-zÁÉÍÓÚáéíóúÑñ]+$/;
+    const regexNombreCompleto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/;
 
     // Validar que el nombre completo no esté vacío y contenga al menos un nombre y un apellido
     if (nombreCompleto === "") {
@@ -142,7 +150,7 @@ function validarNombreCompleto(
     }
 
     if (!regexNombreCompleto.test(nombreCompleto)) {
-        return "El nombre completo debe contener solo letras, con su nombre y apellido.";
+        return "El nombre completo debe contener solo letras, con su nombre y apellidos.";
     }
 
     return null;
@@ -170,7 +178,7 @@ function validarTelefono(
     telefono
 ) {
     console.log("Iniciando validación de teléfono...");
-    const regexTelefono = /^\+\d{1,4}\d{8}$/;
+    const regexTelefono = /^\+\d{1,4}\d{8,10}$/;
 
     // Validar que el teléfono no esté vacío y tenga un formato válido con código de país y número de teléfono
     if (telefono === "") {
@@ -201,7 +209,7 @@ function validarLugarTrabajo(
     lugarTrabajo
 ) {
     console.log("Iniciando validación de lugar de trabajo...");
-    const regexLugarTrabajo = /^[A-Za-z0-9\s]+$/;
+    const regexLugarTrabajo = /^[A-Za-z0-9\s.,&-]+$/;
 
     // Validar que el lugar de trabajo no esté vacío y contenga solo letras, números y espacios
     if (lugarTrabajo === "") {
@@ -209,7 +217,7 @@ function validarLugarTrabajo(
     }
 
     if (!regexLugarTrabajo.test(lugarTrabajo)) {
-        return "El lugar de trabajo no tiene un formato válido, de debe contener solo letras, números y espacios.";
+        return "El lugar de trabajo no tiene un formato válido, de debe contener solo letras, números, espacios y caracteres especiales validos (.,&-).";
     }
 
     return null;
