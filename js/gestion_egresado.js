@@ -16,8 +16,10 @@ formulario.addEventListener("keydown", function(event) {
 
 });
 
+// Agrega un evento de escucha para el envío del formulario
 formulario.addEventListener("submit", function(event) {
 
+    // Variable para almacenar el mensaje de error
     let mensajeError;
 
     // Evita que el formulario se envíe automáticamente
@@ -31,6 +33,8 @@ formulario.addEventListener("submit", function(event) {
     const fechaRegistro = document.getElementById("fecha-registro").value;
     const lugarTrabajo = document.getElementById("lugar-trabajo").value.trim();
 
+
+    // Se validan los campos del formulario y se muestran alertas de error si es necesario
 
     // Validar identificación
     mensajeError = validarIdentificacion(identificacion);
@@ -96,6 +100,8 @@ formulario.addEventListener("submit", function(event) {
 // FUNCIONES DE VALIDACIÓN
 //----------------------------------------------------
 
+// Función para mostrar alertas de error usando SweetAlert2
+// reutilizable para mostrar mensajes de error de validación
 function swalAlertError(mensaje) {
     Swal.fire({
         title: "Error de validación",
@@ -106,11 +112,13 @@ function swalAlertError(mensaje) {
     });
 }
 
+// Función para validar la identificación
 function validarIdentificacion(identificacion) {
 
     console.log("Iniciando validación de identificación...");
     const regexIdentificacion = /^\d{9}$/;
 
+    // Validar que la identificación no esté vacía y tenga exactamente 9 dígitos
     if (identificacion === "") {
         return "La identificación es obligatoria.";
     }
@@ -121,13 +129,14 @@ function validarIdentificacion(identificacion) {
 
     return null;
 }
-
+// Función para validar el nombre completo
 function validarNombreCompleto(
     nombreCompleto
 ) {
     console.log("Iniciando validación de nombre completo...");
     const regexNombreCompleto = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+ [A-Za-zÁÉÍÓÚáéíóúÑñ]+$/;
 
+    // Validar que el nombre completo no esté vacío y contenga al menos un nombre y un apellido
     if (nombreCompleto === "") {
         return "El nombre completo es obligatorio.";
     }
@@ -138,13 +147,14 @@ function validarNombreCompleto(
 
     return null;
 }
-
+// Función para validar el correo electrónico
 function validarCorreoElectronico(
     correoElectronico
 ) {
     console.log("Iniciando validación de correo electrónico...");
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Validar que el correo electrónico no esté vacío y tenga un formato válido 
     if (correoElectronico === "") {
         return "El correo electrónico es obligatorio.";
     }
@@ -155,13 +165,14 @@ function validarCorreoElectronico(
 
     return null;
 }
-
+// Función para validar el teléfono
 function validarTelefono(
     telefono
 ) {
     console.log("Iniciando validación de teléfono...");
     const regexTelefono = /^\+\d{1,4}\d{8}$/;
 
+    // Validar que el teléfono no esté vacío y tenga un formato válido con código de país y número de teléfono
     if (telefono === "") {
         return "El teléfono es obligatorio.";
     }
@@ -172,24 +183,27 @@ function validarTelefono(
 
     return null;
 }
-
+// Función para validar la fecha de registro
 function validarFechaRegistro(fechaRegistro) {
 
     console.log("Iniciando validación de fecha de registro...");
 
+    // Validar que la fecha de registro no esté vacía
+    // por default el navergador asigna la fecha actual, pero se valida por si el usuario borra la fecha o la deja vacía
     if (fechaRegistro === "") {
         return "La fecha de registro es obligatoria.";
     }
 
     return null;
 }
-
+// Función para validar el lugar de trabajo
 function validarLugarTrabajo(
     lugarTrabajo
 ) {
     console.log("Iniciando validación de lugar de trabajo...");
     const regexLugarTrabajo = /^[A-Za-z0-9\s]+$/;
 
+    // Validar que el lugar de trabajo no esté vacío y contenga solo letras, números y espacios
     if (lugarTrabajo === "") {
         return "El lugar de trabajo es obligatorio.";
     }
