@@ -143,8 +143,6 @@ function swalAlertPass() {
     });
 }
 
-console.log("Formulario validado correctamente.");
-
 // Función para validar la identificación
 function validarIdentificacion(identificacion) {
 

@@ -123,16 +123,16 @@
         <section>
             <h2>Actualizar información profesional</h2>
 
-            <form action="#" method="post">
+            <form action="#" method="post" id="formularioActualizacion" novalidate>
 
                 <fieldset>
 
                     <legend>Formulario de actualización</legend>
 
                     <div>
-                        <label for="email-personal">Correo personal</label>
+                        <label for="correo-electronico">Correo personal</label>
 
-                        <input type="email" id="email-personal" name="email_personal"
+                        <input type="email" id="correo-electronico" name="correo_electronico"
                             placeholder="usuario@cenfotec.ac.cr" required autocomplete="email">
                     </div>
 
@@ -167,13 +167,6 @@
                         <label for="linkedin">Perfil de LinkedIn</label>
 
                         <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/usuario"
-                            autocomplete="url">
-                    </div>
-
-                    <div>
-                        <label for="portafolio">Portafolio profesional</label>
-
-                        <input type="url" id="portafolio" name="portafolio" placeholder="https://miportafolio.com"
                             autocomplete="url">
                     </div>
 
@@ -220,6 +213,12 @@
         </section>
 
     </footer>
+
+    <!-- Se incluye SweetAlert2 para mostrar alertas de error de validación -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Se incluye el script de validación del formulario -->
+    <script src="js/perfil_egresado.js"></script>
+
 
 </body>
 
