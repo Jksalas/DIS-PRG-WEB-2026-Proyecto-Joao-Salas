@@ -51,54 +51,62 @@
         <section>
             <h2>Registro de Egresados</h2>
 
-            <form action="#" method="post">
+            <form action="#" method="post" id="formularioEgresado" novalidate>
 
                 <fieldset>
 
                     <legend>Información del egresado</legend>
-
+                    <!-- Campos del formulario para registrar un egresado -->
+                    <!--
+                        Se incluyen los siguientes campos:
+                        - Identificación
+                        - Nombre completo
+                        - Correo electrónico
+                        - Teléfono
+                        - Fecha de registro
+                        - Lugar de trabajo
+                    -->
                     <div>
                         <label for="identificacion">Identificación</label>
 
                         <input type="text" id="identificacion" name="identificacion"
-                            placeholder="Número de identificación" required autocomplete="off">
+                            placeholder="ej. 123456789" autocomplete="off">
                     </div>
 
                     <div>
                         <label for="nombre-completo">Nombre completo</label>
 
                         <input type="text" id="nombre-completo" name="nombre_completo" placeholder="Nombre y apellidos"
-                            required autocomplete="name">
+                             autocomplete="name">
                     </div>
 
                     <div>
                         <label for="correo-electronico">Correo electrónico</label>
 
                         <input type="email" id="correo-electronico" name="correo_electronico"
-                            placeholder="usuario@correo.com" required autocomplete="email">
+                            placeholder="usuario@correo.com" autocomplete="email">
                     </div>
 
                     <div>
                         <label for="telefono">Teléfono</label>
 
-                        <input type="tel" id="telefono" name="telefono" placeholder="+506 8765-4321" required
+                        <input type="tel" id="telefono" name="telefono" placeholder="+50687654321"
                             autocomplete="tel">
                     </div>
 
                     <div>
                         <label for="fecha-registro">Fecha de registro</label>
-
-                        <input type="date" id="fecha-registro" name="fecha_registro" required>
+                        <input type="date" id="fecha-registro" name="fecha_registro">
                     </div>
 
                     <div>
                         <label for="lugar-trabajo">Lugar de trabajo</label>
 
                         <input type="text" id="lugar-trabajo" name="lugar_trabajo" placeholder="Nombre de la empresa"
-                            required autocomplete="organization">
+                             autocomplete="organization">
                     </div>
 
-                    <button type="submit">
+                    <button type="submit" id="btnRegistrar">
                         Registrar egresado
                     </button>
 
@@ -141,6 +149,11 @@
         </section>
 
     </footer>
+
+    <!-- Se incluye SweetAlert2 para mostrar alertas de error de validación -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Se incluye el script de validación del formulario de egresados -->
+    <script src="js/gestion_egresado.js"></script>
 
 </body>
 
