@@ -91,6 +91,31 @@ formulario.addEventListener("submit", function(event) {
     console.log("Formulario validado correctamente.");
     swalAlertPass();
 
+
+    // Crear objeto con la información del egresado
+    const egresado = {
+        identificacion,
+        nombreCompleto,
+        correoElectronico,
+        telefono,
+        fechaRegistro,
+        lugarTrabajo
+    };
+
+    console.log("Objeto egresado creado:");
+    console.log(egresado);
+
+    // Guardar registro en Local Storage
+    const listaActualizada = guardarEgresado(egresado);
+
+    console.log("Lista completa de egresados almacenados:");
+    console.log(listaActualizada);
+
+    // Limpiar el formulario después de guardar el registro
+    formulario.reset();
+    console.log("Formulario limpiado correctamente.");
+
+
 });
 
 //----------------------------------------------------
@@ -221,4 +246,35 @@ function validarLugarTrabajo(
     }
 
     return null;
+}
+
+//----------------------------------------------------
+// LOCAL STORAGE
+//----------------------------------------------------
+
+// Función para obtener los egresados almacenados en el localStorage
+function obtenerEgresados() {
+
+    const registros = localStorage.getItem("egresados");
+
+    if (registros === null) {
+        return [];
+    }
+
+    return JSON.parse(registros);
+}
+
+// Función para guardar un egresado en el localStorage
+function guardarEgresado(egresado) {
+
+    const listaEgresados = obtenerEgresados();
+
+    listaEgresados.push(egresado);
+
+    localStorage.setItem(
+        "egresados",
+        JSON.stringify(listaEgresados)
+    );
+
+    return listaEgresados;
 }
