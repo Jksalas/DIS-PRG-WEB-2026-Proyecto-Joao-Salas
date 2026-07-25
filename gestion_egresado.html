@@ -110,9 +110,38 @@
                         Registrar egresado
                     </button>
 
+                    <button type="button" id="btnCancelarEdicion" hidden>
+                        Cancelar edición
+                    </button>
+
                 </fieldset>
 
             </form>
+        </section>
+
+        <!-- LISTADO DE EGRESADOS REGISTRADOS -->
+        <section>
+            <h2>Egresados registrados</h2>
+
+            <table>
+                <caption>Listado de egresados almacenados</caption>
+
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Nombre completo</th>
+                        <th>Correo electrónico</th>
+                        <th>Teléfono</th>
+                        <th>Fecha de registro</th>
+                        <th>Lugar de trabajo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-egresados">
+                    <!-- JavaScript insertará aquí los egresados -->
+                </tbody>
+            </table>
         </section>
 
         <div class="section-separador"></div>

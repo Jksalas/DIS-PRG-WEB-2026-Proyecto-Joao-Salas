@@ -1,5 +1,11 @@
 // Obtener el formulario
 const formulario = document.querySelector("form");
+const botonRegistrar = document.getElementById("btnRegistrar");
+const botonCancelarEdicion = document.getElementById("btnCancelarEdicion");
+
+// Guarda la posición del egresado que se está editando.
+// El valor null indica que el formulario está en modo de registro.
+let indiceEgresadoEditando = null;
 
 console.log("El archivo JavaScript se cargó correctamente.");
 console.log("Formulario encontrado:", formulario);
@@ -89,7 +95,6 @@ formulario.addEventListener("submit", function(event) {
     console.log("Lugar de trabajo válido.");
 
     console.log("Formulario validado correctamente.");
-    swalAlertPass();
 
 
     // Crear objeto con la información del egresado
@@ -105,14 +110,29 @@ formulario.addEventListener("submit", function(event) {
     console.log("Objeto egresado creado:");
     console.log(egresado);
 
-    // Guardar registro en Local Storage
-    const listaActualizada = guardarEgresado(egresado);
+    let listaActualizada;
+
+    // Si no existe un índice de edición, se agrega un registro nuevo.
+    // En caso contrario, se reemplaza el egresado seleccionado.
+    if (indiceEgresadoEditando === null) {
+        listaActualizada = guardarEgresado(egresado);
+        swalAlertPass(false);
+    } else {
+        listaActualizada = actualizarEgresado(
+            indiceEgresadoEditando,
+            egresado
+        );
+        swalAlertPass(true);
+    }
+
+    // Actualizar el listado visible
+    mostrarEgresados(listaActualizada);
 
     console.log("Lista completa de egresados almacenados:");
     console.log(listaActualizada);
 
-    // Limpiar el formulario después de guardar el registro
-    formulario.reset();
+    // Limpiar el formulario y regresar al modo de registro
+    finalizarEdicion();
     console.log("Formulario limpiado correctamente.");
 
 
@@ -134,10 +154,12 @@ function swalAlertError(mensaje) {
     });
 }
 
-function swalAlertPass() {
+function swalAlertPass(esEdicion) {
     Swal.fire({
-        title: "Registro válido",
-        text: "La información del egresado fue validada correctamente.",
+        title: esEdicion ? "Egresado actualizado" : "Registro válido",
+        text: esEdicion
+            ? "La información del egresado fue actualizada correctamente."
+            : "La información del egresado fue registrada correctamente.",
         icon: "success",
         confirmButtonColor: "#0056b3"
     });
@@ -276,3 +298,198 @@ function guardarEgresado(egresado) {
 
     return listaEgresados;
 }
+
+// Reemplaza un egresado existente y guarda nuevamente la lista completa
+function actualizarEgresado(indice, egresadoActualizado) {
+
+    const listaEgresados = obtenerEgresados();
+
+    listaEgresados[indice] = egresadoActualizado;
+
+    localStorage.setItem(
+        "egresados",
+        JSON.stringify(listaEgresados)
+    );
+
+    return listaEgresados;
+}
+
+// Carga en el formulario los datos del egresado seleccionado
+function iniciarEdicion(indice) {
+
+    const listaEgresados = obtenerEgresados();
+    const egresado = listaEgresados[indice];
+
+    // Evita intentar editar una posición que ya no exista en la lista
+    if (egresado === undefined) {
+        swalAlertError("No fue posible encontrar el egresado seleccionado.");
+        return;
+    }
+
+    document.getElementById("identificacion").value =
+        egresado.identificacion;
+    document.getElementById("nombre-completo").value =
+        egresado.nombreCompleto;
+    document.getElementById("correo-electronico").value =
+        egresado.correoElectronico;
+    document.getElementById("telefono").value =
+        egresado.telefono;
+    document.getElementById("fecha-registro").value =
+        egresado.fechaRegistro;
+    document.getElementById("lugar-trabajo").value =
+        egresado.lugarTrabajo;
+
+    // Cambiar el formulario de modo registro a modo edición
+    indiceEgresadoEditando = indice;
+    botonRegistrar.textContent = "Guardar cambios";
+    botonCancelarEdicion.hidden = false;
+
+    // Llevar al usuario hasta el formulario que contiene los datos cargados
+    formulario.scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+// Limpia el formulario y restaura sus controles al modo de registro
+function finalizarEdicion() {
+
+    formulario.reset();
+    indiceEgresadoEditando = null;
+    botonRegistrar.textContent = "Registrar egresado";
+    botonCancelarEdicion.hidden = true;
+}
+
+// Elimina un egresado después de solicitar confirmación al usuario
+function eliminarEgresado(indice) {
+
+    const listaEgresados = obtenerEgresados();
+    const egresado = listaEgresados[indice];
+
+    // Verificar que el registro todavía exista en la lista
+    if (egresado === undefined) {
+        swalAlertError("No fue posible encontrar el egresado seleccionado.");
+        return;
+    }
+
+    // Solicitar confirmación antes de eliminar permanentemente el registro
+    Swal.fire({
+        title: "¿Eliminar egresado?",
+        text: "Se eliminará el registro de " + egresado.nombreCompleto + ".",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#0056b3",
+        cancelButtonColor: "#6c757d"
+    }).then(function(resultado) {
+
+        // No modificar los datos si el usuario cancela la operación
+        if (!resultado.isConfirmed) {
+            return;
+        }
+
+        // Eliminar un elemento del arreglo en la posición indicada
+        listaEgresados.splice(indice, 1);
+
+        // Guardar nuevamente la lista sin el registro eliminado
+        localStorage.setItem(
+            "egresados",
+            JSON.stringify(listaEgresados)
+        );
+
+        // Cancelar cualquier edición activa y actualizar la tabla
+        finalizarEdicion();
+        mostrarEgresados(listaEgresados);
+
+        Swal.fire({
+            title: "Egresado eliminado",
+            text: "El registro fue eliminado correctamente.",
+            icon: "success",
+            confirmButtonColor: "#0056b3"
+        });
+
+    });
+}
+
+// Función para mostrar los egresados almacenados en la tabla
+function mostrarEgresados(listaEgresados) {
+
+    const cuerpoTabla = document.getElementById("lista-egresados");
+
+    // Elimina las filas mostradas anteriormente
+    cuerpoTabla.replaceChildren();
+
+    // Mostrar un mensaje cuando no existen registros
+    if (listaEgresados.length === 0) {
+
+        const fila = document.createElement("tr");
+        const celda = document.createElement("td");
+
+        celda.textContent = "No hay egresados registrados.";
+        celda.colSpan = 7;
+
+        fila.appendChild(celda);
+        cuerpoTabla.appendChild(fila);
+
+        return;
+    }
+
+    // Crear una fila por cada egresado almacenado
+    listaEgresados.forEach(function(egresado, indice) {
+
+        const fila = document.createElement("tr");
+
+        const datos = [
+            egresado.identificacion,
+            egresado.nombreCompleto,
+            egresado.correoElectronico,
+            egresado.telefono,
+            egresado.fechaRegistro,
+            egresado.lugarTrabajo
+        ];
+
+        datos.forEach(function(dato) {
+
+            const celda = document.createElement("td");
+            celda.textContent = dato;
+            fila.appendChild(celda);
+
+        });
+
+        // Celda reservada para editar y eliminar
+        const celdaAcciones = document.createElement("td");
+
+        const botonEditar = document.createElement("button");
+        botonEditar.type = "button";
+        botonEditar.textContent = "Editar";
+
+        // Cargar en el formulario el registro correspondiente a esta fila
+        botonEditar.addEventListener("click", function() {
+            iniciarEdicion(indice);
+        });
+
+        const botonEliminar = document.createElement("button");
+        botonEliminar.type = "button";
+        botonEliminar.textContent = "Eliminar";
+
+        // Solicitar la eliminación del registro correspondiente a esta fila
+        botonEliminar.addEventListener("click", function() {
+            eliminarEgresado(indice);
+        });
+
+        celdaAcciones.appendChild(botonEditar);
+        celdaAcciones.appendChild(botonEliminar);
+        fila.appendChild(celdaAcciones);
+
+        cuerpoTabla.appendChild(fila);
+
+    });
+}
+
+// Permitir que el usuario abandone una edición sin guardar cambios
+botonCancelarEdicion.addEventListener("click", function() {
+    finalizarEdicion();
+});
+
+// Mostrar los registros existentes al cargar la página
+mostrarEgresados(obtenerEgresados());
