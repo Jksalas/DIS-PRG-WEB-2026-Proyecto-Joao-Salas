@@ -65,8 +65,12 @@
                             autocomplete="organization-title">
                     </div>
 
-                    <button type="submit">
+                    <button type="submit" id="btnRegistrar">
                         Registrar carrera
+                    </button>
+
+                    <button type="button" id="btnCancelarEdicion" hidden>
+                        Cancelar edición
                     </button>
 
                 </fieldset>
@@ -74,6 +78,7 @@
             </form>
         </section>
 
+        <!-- LISTADO DE CARRERAS REGISTRADAS -->
         <section>
             <h2>Carreras registradas</h2>
 
@@ -82,31 +87,14 @@
 
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Carrera</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        <td>Ingeniería en Sistemas Computacionales</td>
-                        <td>
-                            <a href="#">Consultar</a>
-                            <a href="#">Modificar</a>
-                            <a href="#">Eliminar</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Ingeniería en Electrónica</td>
-                        <td>
-                            <a href="#">Consultar</a>
-                            <a href="#">Modificar</a>
-                            <a href="#">Eliminar</a>
-                        </td>
-                    </tr>
+                <tbody id="lista-carreras">
+                    <!-- JavaScript insertará aquí las carreras -->
                 </tbody>
-
             </table>
         </section>
 
