@@ -1,3 +1,5 @@
+// Autor: Joao Salas
+
 // Obtener el formulario
 const formulario = document.querySelector("form");
 
@@ -47,6 +49,13 @@ formulario.addEventListener("submit", function(event) {
     });
 
     if (usuarioEncontrado) {
+        // Guardar la identificación para que el perfil pueda cargar
+        // la información del egresado que inició sesión.
+        localStorage.setItem(
+            "usuarioActivo",
+            usuarioEncontrado.identificacion
+        );
+
         Swal.fire({
             title: "Bienvenido",
             text: "Inicio de sesión exitoso.",

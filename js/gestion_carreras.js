@@ -1,3 +1,5 @@
+// Autor: Joao Salas
+
 // Obtener el formulario
 const formulario = document.querySelector("form");
 const botonRegistrar = document.getElementById("btnRegistrar");
@@ -94,6 +96,7 @@ function swalAlertError(mensaje) {
     });
 }
 
+// Mostrar el mensaje de éxito correspondiente al registro o la edición
 function swalAlertPass(esEdicion) {
     Swal.fire({
         title: esEdicion
@@ -141,6 +144,7 @@ function guardarCarrera(carrera) {
     return listaCarreras;
 }
 
+// Obtener las carreras almacenadas en localStorage
 function obtenerCarreras() {
 
     const registros = localStorage.getItem("carreras");
@@ -237,7 +241,7 @@ function mostrarCarreras(listaCarreras) {
     });
 }
 
-// Elimina un egresado después de solicitar confirmación al usuario
+// Eliminar una carrera después de solicitar confirmación al usuario
 function eliminarCarrera(indice) {
 
     const listaCarreras = obtenerCarreras();
@@ -289,7 +293,7 @@ function eliminarCarrera(indice) {
     });
 }
 
-// Carga en el formulario los datos del egresado seleccionado
+// Cargar en el formulario los datos de la carrera seleccionada
 function iniciarEdicion(indice) {
 
     const listaCarreras = obtenerCarreras();
