@@ -67,7 +67,7 @@ formulario.addEventListener("submit", function(event) {
     } else {
         Swal.fire({
             title: "Error de inicio de sesión",
-            text: "Las credenciales ingresadas no son válidas.",
+            text: "Las credenciales ingresadas no son válidas o no se encuentran registradas.",
             icon: "error",
             confirmButtonColor: "#0056b3"
         });
