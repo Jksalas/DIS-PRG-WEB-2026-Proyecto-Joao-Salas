@@ -1,5 +1,10 @@
+// Autor: Joao Salas
+
 // Obtener el formulario
 const formulario = document.querySelector("form");
+
+// Guarda la posición del egresado activo dentro del arreglo de localStorage.
+let indiceUsuarioActivo = null;
 
 console.log("El archivo JavaScript se cargó correctamente.");
 console.log("Formulario encontrado:", formulario);
@@ -22,18 +27,19 @@ formulario.addEventListener("submit", function(event) {
     // Evita que el formulario se envíe automáticamente
     event.preventDefault();
 
-    // Obtener los valores de los campos`
-    const correoElectronico = document.getElementById("correo-electronico").value.trim();
+    // Obtener los valores de los campos
+    const correoPersonal = document.getElementById("correo-personal").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
-    const empresa_actual = document.getElementById("empresa").value.trim();
-    const puesto_actual = document.getElementById("puesto").value.trim();
-    const area_profesional = document.getElementById("area-profesional").value.trim();
-    const perfil_linkedin = document.getElementById("linkedin").value.trim();
+    const empresaActual = document.getElementById("empresa").value.trim();
+    const puestoActual = document.getElementById("puesto").value.trim();
+    const areaProfesional = document.getElementById("area-profesional").value.trim();
+    const perfilLinkedin = document.getElementById("linkedin").value.trim();
+    const portafolioProfesional = document.getElementById("portafolio").value.trim();
 
     // Se validan los campos del formulario y se muestran alertas de error si es necesario
 
-    // Validar correo
-    mensajeError = validarCorreoElectronico(correoElectronico);
+    // Validar correo personal
+    mensajeError = validarCorreoElectronico(correoPersonal);
 
     if (mensajeError) {
         swalAlertError(mensajeError);
@@ -51,7 +57,7 @@ formulario.addEventListener("submit", function(event) {
     console.log("Teléfono válido.");
 
     // Validar nombre de la empresa
-    mensajeError = validarEmpresa(empresa_actual);
+    mensajeError = validarEmpresa(empresaActual);
 
     if (mensajeError) {
         swalAlertError(mensajeError);
@@ -60,7 +66,7 @@ formulario.addEventListener("submit", function(event) {
     console.log("Nombre de la empresa válido.");
 
     // Validar nombre del puesto
-    mensajeError = validarPuesto(puesto_actual);
+    mensajeError = validarPuesto(puestoActual);
 
     if (mensajeError) {
         swalAlertError(mensajeError);
@@ -69,7 +75,7 @@ formulario.addEventListener("submit", function(event) {
     console.log("Nombre del puesto válido.");
 
     // Validar nombre del área profesional
-    mensajeError = validarAreaProfesional(area_profesional);
+    mensajeError = validarAreaProfesional(areaProfesional);
 
     if (mensajeError) {
         swalAlertError(mensajeError);
@@ -78,7 +84,7 @@ formulario.addEventListener("submit", function(event) {
     console.log("Nombre del área profesional válido.");
 
     // Validar perfil de LinkedIn
-    mensajeError = validarPerfilLinkedIn(perfil_linkedin);
+    mensajeError = validarPerfilLinkedIn(perfilLinkedin);
 
     if (mensajeError) {
         swalAlertError(mensajeError);
@@ -86,7 +92,40 @@ formulario.addEventListener("submit", function(event) {
     }
     console.log("Perfil de LinkedIn válido.");
 
+    // Validar portafolio profesional
+    mensajeError = validarPortafolio(portafolioProfesional);
+
+    if (mensajeError) {
+        swalAlertError(mensajeError);
+        return;
+    }
+    console.log("Portafolio profesional válido.");
+
     console.log("Formulario validado correctamente.");
+
+    // Crear un objeto con los campos que el egresado puede actualizar.
+    // El correo institucional no se incluye para conservar la credencial.
+    const informacionProfesional = {
+        correoPersonal,
+        telefono,
+        lugarTrabajo: empresaActual,
+        puestoActual,
+        areaProfesional,
+        perfilLinkedin,
+        portafolioProfesional
+    };
+
+    const egresadoActualizado = actualizarInformacionProfesional(
+        informacionProfesional
+    );
+
+    if (egresadoActualizado === null) {
+        return;
+    }
+
+    // Reflejar inmediatamente los datos guardados y limpiar el formulario.
+    mostrarInformacionEgresado(egresadoActualizado);
+    formulario.reset();
     swalAlertPass();
 
 });
@@ -107,10 +146,11 @@ function swalAlertError(mensaje) {
     });
 }
 
+// Mostrar una confirmación después de guardar la información profesional
 function swalAlertPass() {
     Swal.fire({
-        title: "Registro válido",
-        text: "La información del egresado fue validada correctamente.",
+        title: "Información actualizada",
+        text: "La información profesional fue actualizada correctamente.",
         icon: "success",
         confirmButtonColor: "#0056b3"
     });
@@ -218,9 +258,9 @@ function validarPerfilLinkedIn(
     console.log("Iniciando validación de nombre de perfil de LinkedIn...");
     const regexpLinkedin = /^https:\/\/linkedin\.com\/in\/[a-zA-Z0-9._-]+$/;
 
-    // Validar que el enlace de LinkedIn no esté vacío y tenga un formato válido
+    // El campo es opcional, pero debe respetar el formato si se completa
     if (nombrePerfil === "") {
-        return "El enlace de LinkedIn es obligatorio.";
+        return null;
     }
 
     if (!regexpLinkedin.test(nombrePerfil)) {
@@ -229,3 +269,145 @@ function validarPerfilLinkedIn(
 
     return null;
 }
+
+// Función para validar el portafolio profesional
+function validarPortafolio(portafolio) {
+
+    // El portafolio es opcional
+    if (portafolio === "") {
+        return null;
+    }
+
+    try {
+        const direccion = new URL(portafolio);
+
+        if (direccion.protocol !== "http:" &&
+            direccion.protocol !== "https:") {
+            return "El portafolio debe utilizar una dirección http o https.";
+        }
+    } catch (error) {
+        return "El portafolio debe contener una dirección válida.";
+    }
+
+    return null;
+}
+
+//----------------------------------------------------
+// LOCAL STORAGE Y PERFIL
+//----------------------------------------------------
+
+// Obtener la lista completa de egresados almacenados
+function obtenerEgresados() {
+
+    const registros = localStorage.getItem("egresados");
+
+    if (registros === null) {
+        return [];
+    }
+
+    return JSON.parse(registros);
+}
+
+// Buscar al egresado que inició sesión y preparar su perfil
+function cargarUsuarioActivo() {
+
+    const identificacionUsuario = localStorage.getItem("usuarioActivo");
+    const listaEgresados = obtenerEgresados();
+
+    indiceUsuarioActivo = listaEgresados.findIndex(function(egresado) {
+        return egresado.identificacion === identificacionUsuario;
+    });
+
+    if (identificacionUsuario === null || indiceUsuarioActivo === -1) {
+        localStorage.removeItem("usuarioActivo");
+
+        Swal.fire({
+            title: "Sesión no válida",
+            text: "Debes iniciar sesión para consultar el perfil.",
+            icon: "warning",
+            confirmButtonColor: "#0056b3"
+        }).then(function() {
+            window.location.href = "login.html";
+        });
+
+        return;
+    }
+
+    mostrarInformacionEgresado(listaEgresados[indiceUsuarioActivo]);
+}
+
+// Actualizar únicamente los campos personales y profesionales editables
+function actualizarInformacionProfesional(informacionProfesional) {
+
+    const listaEgresados = obtenerEgresados();
+    const egresadoExistente = listaEgresados[indiceUsuarioActivo];
+
+    if (egresadoExistente === undefined) {
+        swalAlertError("No fue posible encontrar el perfil del egresado.");
+        return null;
+    }
+
+    listaEgresados[indiceUsuarioActivo] = {
+        ...egresadoExistente,
+        ...informacionProfesional
+    };
+
+    localStorage.setItem(
+        "egresados",
+        JSON.stringify(listaEgresados)
+    );
+
+    return listaEgresados[indiceUsuarioActivo];
+}
+
+// Mostrar la información almacenada en las secciones del perfil
+function mostrarInformacionEgresado(egresado) {
+
+    document.getElementById("perfil-identificacion").textContent =
+        egresado.identificacion;
+    document.getElementById("perfil-nombre").textContent =
+        egresado.nombreCompleto;
+    document.getElementById("perfil-correo-institucional").textContent =
+        egresado.correoElectronico;
+    document.getElementById("perfil-correo-personal").textContent =
+        egresado.correoPersonal || "No registrado";
+    document.getElementById("perfil-telefono").textContent =
+        egresado.telefono;
+    document.getElementById("perfil-empresa").textContent =
+        egresado.lugarTrabajo || "No registrado";
+    document.getElementById("perfil-puesto").textContent =
+        egresado.puestoActual || "No registrado";
+    document.getElementById("perfil-area").textContent =
+        egresado.areaProfesional || "No registrado";
+
+    mostrarEnlace(
+        "perfil-linkedin",
+        egresado.perfilLinkedin
+    );
+    mostrarEnlace(
+        "perfil-portafolio",
+        egresado.portafolioProfesional
+    );
+}
+
+// Configurar de forma segura un enlace opcional del perfil
+function mostrarEnlace(idEnlace, direccion) {
+
+    const enlace = document.getElementById(idEnlace);
+
+    if (!direccion) {
+        enlace.textContent = "No registrado";
+        enlace.removeAttribute("href");
+        enlace.removeAttribute("target");
+        enlace.removeAttribute("rel");
+        return;
+    }
+
+    enlace.textContent = direccion;
+    enlace.href = direccion;
+    enlace.target = "_blank";
+    enlace.rel = "noopener noreferrer";
+}
+
+// Cargar el perfil correspondiente al usuario que inició sesión
+cargarUsuarioActivo();

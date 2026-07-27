@@ -1,3 +1,5 @@
+// Autor: Joao Salas
+
 // Obtener el formulario
 const formulario = document.querySelector("form");
 const botonRegistrar = document.getElementById("btnRegistrar");
@@ -154,6 +156,7 @@ function swalAlertError(mensaje) {
     });
 }
 
+// Mostrar el mensaje de éxito correspondiente al registro o la edición
 function swalAlertPass(esEdicion) {
     Swal.fire({
         title: esEdicion ? "Egresado actualizado" : "Registro válido",
@@ -304,7 +307,12 @@ function actualizarEgresado(indice, egresadoActualizado) {
 
     const listaEgresados = obtenerEgresados();
 
-    listaEgresados[indice] = egresadoActualizado;
+    // Combinar los datos administrativos con el objeto existente evita
+    // eliminar la información profesional registrada desde el perfil.
+    listaEgresados[indice] = {
+        ...listaEgresados[indice],
+        ...egresadoActualizado
+    };
 
     localStorage.setItem(
         "egresados",

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autor: Joao Salas -->
 <html lang="es">
 
 <head>
@@ -53,16 +54,19 @@
 
             <dl>
                 <dt>Identificación</dt>
-                <dd>123456789</dd>
+                <dd id="perfil-identificacion">No registrado</dd>
 
                 <dt>Nombre completo</dt>
-                <dd>Joao Salas Ramirez</dd>
+                <dd id="perfil-nombre">No registrado</dd>
 
                 <dt>Correo institucional</dt>
-                <dd>jsalas@cenfotec.ac.cr</dd>
+                <dd id="perfil-correo-institucional">No registrado</dd>
+
+                <dt>Correo personal</dt>
+                <dd id="perfil-correo-personal">No registrado</dd>
 
                 <dt>Teléfono</dt>
-                <dd>+506 8300-0000</dd>
+                <dd id="perfil-telefono">No registrado</dd>
             </dl>
         </section>
         <!-- INFORMACIÓN ACADÉMICA -->
@@ -95,26 +99,22 @@
 
             <dl>
                 <dt>Empresa actual</dt>
-                <dd>Tech Web CR S.A.</dd>
+                <dd id="perfil-empresa">No registrado</dd>
 
                 <dt>Puesto</dt>
-                <dd>Desarrollador Front End</dd>
+                <dd id="perfil-puesto">No registrado</dd>
 
                 <dt>Área profesional</dt>
-                <dd>Desarrollo de Software</dd>
+                <dd id="perfil-area">No registrado</dd>
 
                 <dt>Perfil de LinkedIn</dt>
                 <dd>
-                    <a href="https://linkedin.com/in/jsalas" target="_blank" rel="noopener noreferrer">
-                        linkedin.com/in/jsalas
-                    </a>
+                    <a id="perfil-linkedin">No registrado</a>
                 </dd>
 
                 <dt>Portafolio profesional</dt>
                 <dd>
-                    <a href="https://jsalas.dev" target="_blank" rel="noopener noreferrer">
-                        jsalas.dev
-                    </a>
+                    <a id="perfil-portafolio">No registrado</a>
                 </dd>
             </dl>
         </section>
@@ -130,10 +130,10 @@
                     <legend>Formulario de actualización</legend>
 
                     <div>
-                        <label for="correo-electronico">Correo personal</label>
+                        <label for="correo-personal">Correo personal</label>
 
-                        <input type="email" id="correo-electronico" name="correo_electronico"
-                            placeholder="usuario@cenfotec.ac.cr" required autocomplete="email">
+                        <input type="email" id="correo-personal" name="correo_personal"
+                            placeholder="usuario@correo.com" required autocomplete="email">
                     </div>
 
                     <div>
@@ -168,6 +168,13 @@
 
                         <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/usuario"
                             autocomplete="url">
+                    </div>
+
+                    <div>
+                        <label for="portafolio">Portafolio profesional</label>
+
+                        <input type="url" id="portafolio" name="portafolio"
+                            placeholder="https://miportafolio.com" autocomplete="url">
                     </div>
 
                     <button type="submit">
