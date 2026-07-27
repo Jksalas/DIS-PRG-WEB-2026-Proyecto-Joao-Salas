@@ -211,6 +211,7 @@ caption {
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 15px;
+    padding-left: 4px;
 }
 
 thead {
