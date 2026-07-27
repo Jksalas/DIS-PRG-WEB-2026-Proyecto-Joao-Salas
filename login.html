@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Autor: Joao Salas -->
 <html lang="es">
 
 <head>
@@ -46,7 +47,7 @@
 
         <!-- FORMULARIO DE INICIO DE SESIÓN -->
         <section>
-            <form>
+            <form action="#" method="post" id="formularioLogin" novalidate>
                 <fieldset>
                     <legend>Inicio de sesión</legend>
 
@@ -62,7 +63,7 @@
                             required autocomplete="current-password">
                     </div>
 
-                    <button type="submit">Ingresar</button>
+                    <button type="submit" id="btnIngresar">Ingresar</button>
                 </fieldset>
             </form>
 
@@ -102,6 +103,11 @@
         </section>
 
     </footer>
+
+    <!-- Se incluye SweetAlert2 para mostrar alertas de error de validación -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Se incluye el script de validación del formulario de inicio de sesión -->
+    <script src="js/login.js"></script>
 
 </body>
 
