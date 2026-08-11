@@ -2,6 +2,7 @@
 
 // Referencia al formulario que captura el nombre de una nueva carrera.
 const formulario = document.getElementById("formularioCarrera");
+const botonRegistrar = document.getElementById("btnRegistrar");
 
 // Dirección del recurso de carreras expuesto por la API REST.
 // Esta misma URL se utilizará para consultar (GET) y registrar (POST).
@@ -21,7 +22,7 @@ formulario.addEventListener("keydown", function(event) {
 
 
 // En este bloque se valida la entrada y se crea el objeto esperado por la API.
-formulario.addEventListener("submit", function(event) {
+formulario.addEventListener("submit", async function(event) {
 
     // Impedir que el navegador recargue la página al enviar el formulario.
     event.preventDefault();
@@ -44,7 +45,36 @@ formulario.addEventListener("submit", function(event) {
     console.log("Formulario validado correctamente.");
     console.log("Objeto preparado para enviar al servidor:", carrera);
 
-    // El envío mediante POST se incorporará en el siguiente paso del proyecto.
+    // Bloquear temporalmente el botón para evitar varios POST simultáneos.
+    botonRegistrar.disabled = true;
+    botonRegistrar.textContent = "Registrando...";
+
+    try {
+        const carreraCreada = await guardarCarreraServidor(carrera);
+
+        console.log("Carrera creada por el servidor:", carreraCreada);
+
+        // Limpiar el formulario solamente después de recibir una respuesta exitosa.
+        formulario.reset();
+
+        // Repetir el GET para mostrar inmediatamente el registro creado en MongoDB.
+        await cargarCarrerasServidor();
+
+        swalAlertPass();
+
+    } catch (error) {
+        // Conservar el contenido del formulario para que el usuario pueda corregirlo.
+        const mensaje = error instanceof TypeError
+            ? "No fue posible conectar con el servidor. Verifica que el backend esté ejecutándose en el puerto 3000."
+            : error.message;
+
+        swalAlertServidor(mensaje);
+
+    } finally {
+        // Restaurar siempre el botón, tanto después del éxito como del error.
+        botonRegistrar.disabled = false;
+        botonRegistrar.textContent = "Registrar carrera";
+    }
 
 });
 
@@ -58,6 +88,27 @@ function swalAlertError(mensaje) {
         title: "Error de validación",
         text: mensaje,
         icon: "warning",
+        confirmButtonText: "Intentar de nuevo",
+        confirmButtonColor: "#0056b3"
+    });
+}
+
+// Confirmar al usuario que MongoDB almacenó correctamente la nueva carrera.
+function swalAlertPass() {
+    Swal.fire({
+        title: "Carrera registrada",
+        text: "La carrera fue almacenada correctamente en el servidor.",
+        icon: "success",
+        confirmButtonColor: "#0056b3"
+    });
+}
+
+// Informar errores HTTP o de conexión ocurridos durante el POST.
+function swalAlertServidor(mensaje) {
+    Swal.fire({
+        title: "Error del servidor",
+        text: mensaje,
+        icon: "error",
         confirmButtonText: "Intentar de nuevo",
         confirmButtonColor: "#0056b3"
     });
