@@ -1,18 +1,16 @@
 // Autor: Joao Salas
 
-// Obtener el formulario
-const formulario = document.querySelector("form");
-const botonRegistrar = document.getElementById("btnRegistrar");
-const botonCancelarEdicion = document.getElementById("btnCancelarEdicion");
+// Referencia al formulario que captura el nombre de una nueva carrera.
+const formulario = document.getElementById("formularioCarrera");
 
-// Guarda la posición de la carrera que se está editando.
-// El valor null indica que el formulario está en modo de registro.
-let indiceCarreraEditando = null;
+// Dirección del recurso de carreras expuesto por la API REST.
+// Esta misma URL se utilizará para consultar (GET) y registrar (POST).
+const API_CARRERAS = "http://localhost:3000/carreras";
 
 console.log("El archivo JavaScript se cargó correctamente.");
 console.log("Formulario encontrado:", formulario);
 
-// Bloquea el envío del formulario al presionar Enter
+// Evitar envíos accidentales cuando el usuario presiona Enter dentro del campo.
 formulario.addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
@@ -21,62 +19,32 @@ formulario.addEventListener("keydown", function(event) {
 
 });
 
-// Agrega un evento de escucha para el envío del formulario
+
+// En este bloque se valida la entrada y se crea el objeto esperado por la API.
 formulario.addEventListener("submit", function(event) {
 
-    // Variable para almacenar el mensaje de error
-    let mensajeError;
-
-    // Evita que el formulario se envíe automáticamente
+    // Impedir que el navegador recargue la página al enviar el formulario.
     event.preventDefault();
 
-    // Obtener los valores de los campos
+    // Obtener el nombre y eliminar espacios innecesarios al inicio y al final.
     const nombreCarrera = document.getElementById("nombre-carrera").value.trim();
+    const mensajeError = validarCarrera(nombreCarrera);
 
-
-    // Se validan los campos del formulario y se muestran alertas de error si es necesario
-
-    mensajeError = validarCarrera(nombreCarrera);
-
+    // Detener el flujo si la función de validación devuelve un mensaje de error.
     if (mensajeError) {
         swalAlertError(mensajeError);
         return;
     }
-    console.log("Nombre de carrera válido.");
 
-    console.log("Formulario validado correctamente.");
-
-    // Crear objeto con la información de la carrera
+    // El objeto coincide con la estructura mínima esperada por POST /carreras
     const carrera = {
         nombre: nombreCarrera
     };
 
-    console.log("Objeto carrera creado:");
-    console.log(carrera);
+    console.log("Formulario validado correctamente.");
+    console.log("Objeto preparado para enviar al servidor:", carrera);
 
-    let listaActualizada;
-
-    // Si no existe un índice de edición, se agrega un registro nuevo.
-    // En caso contrario, se reemplaza la carrera seleccionada.
-    if (indiceCarreraEditando === null) {
-        listaActualizada = guardarCarrera(carrera);
-        swalAlertPass(false);
-    } else {
-        listaActualizada = actualizarCarrera(
-            indiceCarreraEditando,
-            carrera
-        );
-        swalAlertPass(true);
-    }
-
-    // Actualizar el listado visible
-    mostrarCarreras(listaActualizada);
-
-
-    // Limpiar el formulario y regresar al modo de registro
-    finalizarEdicion();
-    console.log("Formulario limpiado correctamente.");
-
+    // El envío mediante POST se incorporará en el siguiente paso del proyecto.
 
 });
 
@@ -84,8 +52,7 @@ formulario.addEventListener("submit", function(event) {
 // FUNCIONES DE VALIDACIÓN
 //----------------------------------------------------
 
-// Función para mostrar alertas de error usando SweetAlert2
-// reutilizable para mostrar mensajes de error de validación
+// Centralizar las alertas de validación para mantener el mismo diseño y formato.
 function swalAlertError(mensaje) {
     Swal.fire({
         title: "Error de validación",
@@ -96,28 +63,13 @@ function swalAlertError(mensaje) {
     });
 }
 
-// Mostrar el mensaje de éxito correspondiente al registro o la edición
-function swalAlertPass(esEdicion) {
-    Swal.fire({
-        title: esEdicion
-            ? "Carrera actualizada"
-            : "Carrera registrada",
-        text: esEdicion
-            ? "La carrera fue actualizada correctamente."
-            : "La carrera fue registrada correctamente.",
-        icon: "success",
-        confirmButtonColor: "#0056b3"
-    });
-}
+// Comprobar que el nombre sea obligatorio y contenga solamente letras y espacios.
+// La función devuelve un texto cuando existe un error y null cuando el dato es válido.
+function validarCarrera(nombreCarrera) {
 
-// Función para validar el nombre de la carrera
-function validarCarrera(
-    nombreCarrera
-) {
     console.log("Iniciando validación de nombre de carrera...");
     const regexNombreCarrera = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
-    // Validar que el nombre de carrera no esté vacío y contenga solo letras y espacios
     if (nombreCarrera === "") {
         return "El nombre de carrera es obligatorio.";
     }
@@ -129,207 +81,184 @@ function validarCarrera(
     return null;
 }
 
-// Función para guardar una carrera en el localStorage
-function guardarCarrera(carrera) {
+//----------------------------------------------------
+// COMUNICACIÓN CON LA API REST
+//----------------------------------------------------
 
-    const listaCarreras = obtenerCarreras();
+// Realizar una petición HTTP GET para obtener todas las carreras de MongoDB.
+async function obtenerCarrerasServidor() {
 
-    listaCarreras.push(carrera);
+    try {
+        // fetch devuelve una promesa; await pausa esta función hasta recibir la respuesta.
+        const respuesta = await fetch(API_CARRERAS);
 
-    localStorage.setItem(
-        "carreras",
-        JSON.stringify(listaCarreras)
-    );
+        // Una respuesta HTTP con error no provoca por sí sola el rechazo de fetch
+        if (!respuesta.ok) {
+            throw new Error(
+                "No fue posible consultar las carreras. Código HTTP: " +
+                respuesta.status
+            );
+        }
 
-    return listaCarreras;
-}
+        // Convertir el cuerpo JSON de la respuesta en un valor utilizable por JavaScript.
+        const carreras = await respuesta.json();
 
-// Obtener las carreras almacenadas en localStorage
-function obtenerCarreras() {
+        // El backend debe responder con un arreglo de objetos
+        if (!Array.isArray(carreras)) {
+            throw new Error("El servidor devolvió una respuesta con formato inesperado.");
+        }
+        return carreras;
 
-    const registros = localStorage.getItem("carreras");
-
-    if (registros === null) {
-        return [];
+    } catch (error) {
+        console.error("Error al consultar las carreras del servidor:", error);
+        // Propagar el error permite que la interfaz decida cómo mostrárselo al usuario
+        throw error;
     }
-
-    return JSON.parse(registros);
 }
 
-// Reemplaza una carrera existente y guarda nuevamente la lista completa
-function actualizarCarrera(indice, carreraActualizada) {
+// Realizar una petición HTTP POST para almacenar una nueva carrera en MongoDB.
+// Recibe el objeto validado del formulario y devuelve la carrera creada por el servidor.
+async function guardarCarreraServidor(carrera) {
 
-    const listaCarreras = obtenerCarreras();
+    try {
+        const respuesta = await fetch(API_CARRERAS, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(carrera)
+        });
 
-    listaCarreras[indice] = carreraActualizada;
+        // Intentar leer el cuerpo JSON tanto en respuestas exitosas como fallidas.
+        // El backend utiliza este cuerpo para devolver la carrera o un mensaje de error.
+        let datosRespuesta;
 
-    localStorage.setItem(
-        "carreras",
-        JSON.stringify(listaCarreras)
-    );
+        try {
+            datosRespuesta = await respuesta.json();
+        } catch (errorConversion) {
+            datosRespuesta = {};
+        }
 
-    return listaCarreras;
+        // fetch no rechaza automáticamente las respuestas 400 o 500.
+        // Por eso se debe comprobar el estado HTTP antes de considerar exitoso el POST.
+        if (!respuesta.ok) {
+            const mensajeServidor =
+                datosRespuesta.mensajeError ||
+                datosRespuesta.msj ||
+                "No fue posible registrar la carrera. Código HTTP: " + respuesta.status;
+
+            throw new Error(mensajeServidor);
+        }
+
+        return datosRespuesta;
+
+    } catch (error) {
+        console.error("Error al registrar la carrera en el servidor:", error);
+
+        // Propagar el error permite que el evento submit decida cómo informar al usuario.
+        throw error;
+    }
 }
 
-// Función para mostrar las carreras almacenadas en la tabla
-function mostrarCarreras(listaCarreras) {
+// Convertir el arreglo recibido mediante GET en filas visibles dentro de la tabla.
+// Esta función se limita a presentar datos y no realiza nuevas peticiones al servidor.
+function mostrarCarrerasServidor(listaCarreras) {
 
-    const cuerpoTabla = document.getElementById("lista-carreras");
-
-    // Elimina las filas mostradas anteriormente
+    const cuerpoTabla = document.getElementById("lista-carreras-servidor");
+    // Retirar el mensaje provisional y cualquier resultado anterior
     cuerpoTabla.replaceChildren();
 
-    // Mostrar un mensaje cuando no existen registros
+    // Presentar un estado vacío válido cuando MongoDB no contiene carreras.
     if (listaCarreras.length === 0) {
-
         const fila = document.createElement("tr");
         const celda = document.createElement("td");
 
-        celda.textContent = "No hay carreras registradas.";
-        celda.colSpan = 2;
+        celda.textContent = "No hay carreras almacenadas en el servidor.";
+        celda.colSpan = 3;
 
         fila.appendChild(celda);
         cuerpoTabla.appendChild(fila);
-
         return;
     }
 
-    // Crear una fila por cada carrera almacenada
-    listaCarreras.forEach(function(carrera, indice) {
-
+    // Crear una fila segura por cada objeto recibido desde el servidor
+    listaCarreras.forEach(function(carrera) {
         const fila = document.createElement("tr");
 
-        const datos = [
-            carrera.nombre
-        ];
+        const celdaNombre = document.createElement("td");
+        celdaNombre.textContent = carrera.nombre || "Nombre no disponible";
 
-        datos.forEach(function(dato) {
+        const celdaDescripcion = document.createElement("td");
+        celdaDescripcion.textContent = carrera.descripcion || "Sin descripción";
 
-            const celda = document.createElement("td");
-            celda.textContent = dato;
-            fila.appendChild(celda);
+        const celdaFecha = document.createElement("td");
+        celdaFecha.textContent = formatearFechaServidor(carrera.createdAt);
 
-        });
-
-        // Celda reservada para editar y eliminar
-        const celdaAcciones = document.createElement("td");
-
-        const botonEditar = document.createElement("button");
-        botonEditar.type = "button";
-        botonEditar.textContent = "Editar";
-
-        // Cargar en el formulario el registro correspondiente a esta fila
-        botonEditar.addEventListener("click", function() {
-            iniciarEdicion(indice);
-        });
-
-        const botonEliminar = document.createElement("button");
-        botonEliminar.type = "button";
-        botonEliminar.textContent = "Eliminar";
-
-        // Solicitar la eliminación del registro correspondiente a esta fila
-        botonEliminar.addEventListener("click", function() {
-            eliminarCarrera(indice);
-        });
-
-        celdaAcciones.appendChild(botonEditar);
-        celdaAcciones.appendChild(botonEliminar);
-        fila.appendChild(celdaAcciones);
-
+        fila.appendChild(celdaNombre);
+        fila.appendChild(celdaDescripcion);
+        fila.appendChild(celdaFecha);
         cuerpoTabla.appendChild(fila);
-
     });
 }
 
-// Eliminar una carrera después de solicitar confirmación al usuario
-function eliminarCarrera(indice) {
+// Convertir el valor ISO de createdAt, generado por MongoDB, a una fecha legible.
+// Si el servidor no envía la fecha o el valor es inválido, se muestra un texto alternativo.
+function formatearFechaServidor(fechaServidor) {
 
-    const listaCarreras = obtenerCarreras();
-    const carrera = listaCarreras[indice];
-
-    // Verificar que el registro todavía exista en la lista
-    if (carrera === undefined) {
-        swalAlertError("No fue posible encontrar la carrera seleccionada.");
-        return;
+    if (!fechaServidor) {
+        return "Fecha no disponible";
     }
 
-    // Solicitar confirmación antes de eliminar permanentemente el registro
-    Swal.fire({
-        title: "¿Eliminar carrera?",
-        text: "Se eliminará el registro de " + carrera.nombre + ".",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#0056b3",
-        cancelButtonColor: "#6c757d"
-    }).then(function(resultado) {
+    const fecha = new Date(fechaServidor);
 
-        // No modificar los datos si el usuario cancela la operación
-        if (!resultado.isConfirmed) {
-            return;
-        }
-
-        // Eliminar un elemento del arreglo en la posición indicada
-        listaCarreras.splice(indice, 1);
-
-        // Guardar nuevamente la lista sin el registro eliminado
-        localStorage.setItem(
-            "carreras",
-            JSON.stringify(listaCarreras)
-        );
-
-        // Cancelar cualquier edición activa y actualizar la tabla
-        finalizarEdicion();
-        mostrarCarreras(listaCarreras);
-
-        Swal.fire({
-            title: "Carrera eliminada",
-            text: "El registro fue eliminado correctamente.",
-            icon: "success",
-            confirmButtonColor: "#0056b3"
-        });
-
-    });
-}
-
-// Cargar en el formulario los datos de la carrera seleccionada
-function iniciarEdicion(indice) {
-
-    const listaCarreras = obtenerCarreras();
-    const carrera = listaCarreras[indice];
-
-    // Evita intentar editar una posición que ya no exista en la lista
-    if (carrera === undefined) {
-        swalAlertError("No fue posible encontrar la carrera seleccionada.");
-        return;
+    if (Number.isNaN(fecha.getTime())) {
+        return "Fecha no disponible";
     }
 
-    document.getElementById("nombre-carrera").value =
-        carrera.nombre;
-
-    // Cambiar el formulario de modo registro a modo edición
-    indiceCarreraEditando = indice;
-    botonRegistrar.textContent = "Guardar cambios";
-    botonCancelarEdicion.hidden = false;
-
-    // Llevar al usuario hasta el formulario que contiene los datos cargados
-    formulario.scrollIntoView({
-        behavior: "smooth"
+    return fecha.toLocaleDateString("es-CR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
     });
 }
 
-// Limpia el formulario y restaura sus controles al modo de registro
-function finalizarEdicion() {
+// Coordinar el flujo completo de consulta: mostrar la carga, esperar el GET
+// y decidir si se deben presentar carreras o un mensaje de error en la tabla.
+async function cargarCarrerasServidor() {
 
-    formulario.reset();
-    indiceCarreraEditando = null;
-    botonRegistrar.textContent = "Registrar carrera";
-    botonCancelarEdicion.hidden = true;
+    mostrarMensajeTablaServidor("Consultando carreras en el servidor...");
+
+    try {
+        const carreras = await obtenerCarrerasServidor();
+        mostrarCarrerasServidor(carreras);
+    } catch (error) {
+        // Los errores TypeError normalmente indican que fetch no pudo conectarse.
+        // Los demás errores contienen el mensaje HTTP o de formato creado anteriormente.
+        const mensaje = error instanceof TypeError
+            ? "No fue posible conectar con el servidor. Verifica que el backend esté ejecutándose en el puerto 3000."
+            : error.message;
+
+        mostrarMensajeTablaServidor(mensaje);
+    }
 }
 
-botonCancelarEdicion.addEventListener("click", function() {
-    finalizarEdicion();
+// Construir una fila informativa reutilizable para estados de carga o error.
+// colSpan permite que el mensaje ocupe las tres columnas de la tabla del servidor.
+function mostrarMensajeTablaServidor(mensaje) {
+
+    const cuerpoTabla = document.getElementById("lista-carreras-servidor");
+    const fila = document.createElement("tr");
+    const celda = document.createElement("td");
+
+    celda.textContent = mensaje;
+    celda.colSpan = 3;
+
+    fila.appendChild(celda);
+    cuerpoTabla.replaceChildren(fila);
+}
+
+// Iniciar la consulta automática cuando el navegador termine de construir el DOM.
+// De esta manera, la tabla se llena sin que el usuario tenga que recargarla manualmente.
+document.addEventListener("DOMContentLoaded", function() {
+    cargarCarrerasServidor();
 });
-
-mostrarCarreras(obtenerCarreras());
