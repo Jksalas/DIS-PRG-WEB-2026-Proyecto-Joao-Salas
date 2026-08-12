@@ -4,7 +4,8 @@
    TARJETAS
 ========================= */
 
-
+/* Comparte el diseño de tarjeta entre cada artículo de beneficios y
+   actividades. La sombra y el borde lateral separan visualmente el contenido. */
 #beneficios article,
 #actividades article{
     background:white;
@@ -15,6 +16,7 @@
     transition:.3s;
 }
 
+/* Mantiene centrados y uniformes los títulos de ambas secciones. */
 #beneficios h2,
 #actividades h2 {
     text-align: center;
@@ -23,6 +25,8 @@
     color: #1b2b45;
 }
 
+/* Organiza las tarjetas de beneficios en una cuadrícula adaptable. auto-fit
+   agrega tantas columnas como permita el espacio, con un mínimo de 240 px. */
 #beneficios > div{
     display:grid;
     grid-template-columns:
@@ -31,11 +35,14 @@
     margin-top:50px;
 }
 
+/* Resalta el título individual de cada beneficio. */
 #beneficios article h3{
     color:var(--primary-dark);
     margin-bottom:15px;
 }
 
+/* Organiza las actividades en columnas adaptables con un ancho mínimo mayor,
+   apropiado para el contenido informativo de cada actividad. */
 #actividades > div{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
@@ -43,6 +50,7 @@
     margin-top:50px;
 }
 
+/* Presenta la fecha u hora de una actividad como una etiqueta destacada. */
 time{
     display:inline-block;
     margin-top:20px;

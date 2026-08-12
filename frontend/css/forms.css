@@ -4,13 +4,15 @@
    FORMULARIO
 ========================= */
 
+/* Limita el ancho de los formularios y los centra horizontalmente. */
 form {
     width: 90%;
     max-width: 500px;
     margin: 3rem auto;
 }
 
-/* Espaciado entre controles */
+/* Separa verticalmente cada grupo de controles, tanto fuera como dentro
+   de un fieldset. El símbolo > selecciona únicamente hijos directos. */
 
 form > div,
 form fieldset > div {
@@ -21,12 +23,15 @@ form fieldset > div {
    FIELDSET
 ========================= */
 
+/* Elimina el borde predeterminado de los grupos de campos y mantiene
+   espacio antes del siguiente bloque del formulario. */
 fieldset {
     border: none;
     padding: 0;
     margin: 0 0 2rem;
 }
 
+/* Destaca el título descriptivo de cada grupo de campos. */
 legend {
     margin-bottom: 1rem;
     font-size: 1.2rem;
@@ -38,6 +43,7 @@ legend {
    LABELS
 ========================= */
 
+/* Coloca cada etiqueta en su propia línea y resalta el nombre del campo. */
 label {
     display: block;
     margin-bottom: .75rem;
@@ -50,6 +56,9 @@ label {
    INPUTS
 ========================= */
 
+/* Comparte dimensiones, tipografía y apariencia entre campos de texto,
+   listas desplegables y áreas de texto. La transición suaviza los cambios
+   visuales que se producen durante hover y focus. */
 input,
 select,
 textarea {
@@ -65,7 +74,7 @@ textarea {
                 box-shadow .25s ease;
 }
 
-/* Altura uniforme */
+/* Mantiene un espacio interno uniforme en inputs y listas desplegables. */
 
 input,
 select {
@@ -76,6 +85,7 @@ select {
    TEXTAREA
 ========================= */
 
+/* Proporciona espacio para texto extenso y permite cambiar solo su altura. */
 textarea {
     min-height: 180px;
     padding-top: 18px;
@@ -87,6 +97,8 @@ textarea {
    SELECT
 ========================= */
 
+/* Muestra un cursor interactivo y elimina la apariencia nativa para conservar
+   el mismo diseño visual que los demás controles. */
 select {
     cursor: pointer;
     appearance: none;
@@ -96,6 +108,7 @@ select {
    PLACEHOLDER
 ========================= */
 
+/* Utiliza un tono tenue para diferenciar las instrucciones del valor escrito. */
 input::placeholder,
 textarea::placeholder {
     color: #cfcfcf;
@@ -105,6 +118,7 @@ textarea::placeholder {
    HOVER
 ========================= */
 
+/* Conserva el color institucional del borde al pasar el cursor. */
 input:hover,
 select:hover,
 textarea:hover {
@@ -115,6 +129,7 @@ textarea:hover {
    FOCUS
 ========================= */
 
+/* Indica visualmente cuál control está activo mediante un halo exterior. */
 input:focus,
 select:focus,
 textarea:focus {
@@ -127,6 +142,7 @@ textarea:focus {
    BOTONES DEL FORMULARIO
 ========================= */
 
+/* Asegura que las acciones principales tengan un tamaño cómodo y uniforme. */
 form button {
     min-width: 180px;
     padding: 16px 36px;
@@ -136,7 +152,9 @@ form button {
    RESPONSIVE
 ========================= */
 
+/* Ajusta formularios y controles para pantallas de 768 píxeles o menos. */
 @media (max-width: 768px) {
+    /* Aprovecha una mayor proporción del ancho disponible en dispositivos pequeños. */
     form {
         width: 95%;
         margin: 2rem auto;
@@ -145,9 +163,11 @@ form button {
     select {
         height: 60px;
     }
+    /* Reduce ligeramente el texto de las etiquetas en pantallas pequeñas. */
     label {
         font-size: 1rem;
     }
+    /* Extiende los botones para facilitar su pulsación en dispositivos táctiles. */
     form button {
         width: 100%;
     }

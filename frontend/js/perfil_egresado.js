@@ -299,26 +299,36 @@ function validarPortafolio(portafolio) {
 // Obtener la lista completa de egresados almacenados
 function obtenerEgresados() {
 
+    // Recuperar el texto JSON guardado por la página de gestión de egresados.
     const registros = localStorage.getItem("egresados");
 
+    // Si todavía no existen registros, devolver un arreglo vacío permite
+    // que las demás funciones trabajen sin intentar recorrer un valor null.
     if (registros === null) {
         return [];
     }
 
+    // Convertir el texto JSON nuevamente en un arreglo de objetos JavaScript.
     return JSON.parse(registros);
 }
 
 // Buscar al egresado que inició sesión y preparar su perfil
 function cargarUsuarioActivo() {
 
+    // El inicio de sesión guarda la identificación del usuario en esta clave.
     const identificacionUsuario = localStorage.getItem("usuarioActivo");
     const listaEgresados = obtenerEgresados();
 
+    // Buscar la posición del egresado cuya identificación coincide con la
+    // almacenada durante el inicio de sesión.
     indiceUsuarioActivo = listaEgresados.findIndex(function(egresado) {
         return egresado.identificacion === identificacionUsuario;
     });
 
+    // La sesión no es válida si no existe una identificación almacenada o si
+    // esa identificación ya no corresponde a ningún egresado registrado.
     if (identificacionUsuario === null || indiceUsuarioActivo === -1) {
+        // Eliminar cualquier dato de sesión inválido antes de regresar al login.
         localStorage.removeItem("usuarioActivo");
 
         Swal.fire({
@@ -333,36 +343,45 @@ function cargarUsuarioActivo() {
         return;
     }
 
+    // Enviar el objeto encontrado a la función que lo presenta en el HTML.
     mostrarInformacionEgresado(listaEgresados[indiceUsuarioActivo]);
 }
 
 // Actualizar únicamente los campos personales y profesionales editables
 function actualizarInformacionProfesional(informacionProfesional) {
 
+    // Obtener la lista actual y localizar el objeto del usuario autenticado.
     const listaEgresados = obtenerEgresados();
     const egresadoExistente = listaEgresados[indiceUsuarioActivo];
 
+    // Evitar modificar el arreglo si el usuario activo dejó de existir.
     if (egresadoExistente === undefined) {
         swalAlertError("No fue posible encontrar el perfil del egresado.");
         return null;
     }
 
+    // El operador de propagación conserva los datos administrativos existentes
+    // y reemplaza solamente los campos incluidos en informacionProfesional.
     listaEgresados[indiceUsuarioActivo] = {
         ...egresadoExistente,
         ...informacionProfesional
     };
 
+    // Guardar nuevamente el arreglo completo en formato JSON.
     localStorage.setItem(
         "egresados",
         JSON.stringify(listaEgresados)
     );
 
+    // Devolver el objeto actualizado para refrescar inmediatamente el perfil.
     return listaEgresados[indiceUsuarioActivo];
 }
 
 // Mostrar la información almacenada en las secciones del perfil
 function mostrarInformacionEgresado(egresado) {
 
+    // Colocar en cada elemento del HTML los datos administrativos y
+    // profesionales del egresado que inició sesión.
     document.getElementById("perfil-identificacion").textContent =
         egresado.identificacion;
     document.getElementById("perfil-nombre").textContent =
@@ -380,6 +399,8 @@ function mostrarInformacionEgresado(egresado) {
     document.getElementById("perfil-area").textContent =
         egresado.areaProfesional || "No registrado";
 
+    // Los enlaces opcionales necesitan una configuración adicional para
+    // evitar mostrar vínculos vacíos o inseguros.
     mostrarEnlace(
         "perfil-linkedin",
         egresado.perfilLinkedin
@@ -393,8 +414,11 @@ function mostrarInformacionEgresado(egresado) {
 // Configurar de forma segura un enlace opcional del perfil
 function mostrarEnlace(idEnlace, direccion) {
 
+    // Localizar el elemento <a> que mostrará la dirección recibida.
     const enlace = document.getElementById(idEnlace);
 
+    // Cuando no existe una dirección, mostrar un texto informativo y retirar
+    // los atributos que podrían conservar un enlace configurado previamente.
     if (!direccion) {
         enlace.textContent = "No registrado";
         enlace.removeAttribute("href");
@@ -403,6 +427,8 @@ function mostrarEnlace(idEnlace, direccion) {
         return;
     }
 
+    // Mostrar la dirección y abrirla en otra pestaña. noopener y noreferrer
+    // impiden que la página externa acceda a la ventana original.
     enlace.textContent = direccion;
     enlace.href = direccion;
     enlace.target = "_blank";
