@@ -28,7 +28,6 @@ body {
     --primary: #0056b3;
     --primary-dark: #003f88;
     --light-bg: #f2f4f7;
-    --section-gray: #e6e6e6;
     --text: #222;
     --white: #fff;
 }
@@ -122,11 +121,6 @@ section {
     background-color:var(--primary);
 }
 
-/* Clase reutilizable para centrar títulos cuando el diseño lo requiera. */
-.titulo-centrado{
-    text-align: center;
-}
-
 /* Evita que las imágenes sobrepasen el ancho de su contenedor. */
 img {
     max-width: 100%;
@@ -136,8 +130,8 @@ img {
 /* =========================
    BOTONES
 ========================= */
-/* Comparte la misma apariencia entre botones HTML y enlaces con clase .btn. */
-button, .btn {
+/* Define una apariencia uniforme para los botones HTML. */
+button {
     background-color: var(--primary);
     color: white;
     border: none;
@@ -149,7 +143,7 @@ button, .btn {
 }
 
 /* Oscurece el botón para indicar que puede seleccionarse. */
-button:hover, .btn:hover {
+button:hover {
     background-color: var(--primary-dark);
 }
 
@@ -273,22 +267,6 @@ tbody tr:last-child {
 /* Resalta la fila que el usuario está revisando con el cursor. */
 tbody tr:hover {
     background: var(--light-bg);
-}
-
-/* Enlaces de acciones */
-
-/* Distingue los enlaces incluidos en las celdas como acciones disponibles. */
-td a {
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 18px;
-}
-
-/* Refuerza la respuesta visual de las acciones al pasar el cursor. */
-td a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
 }
 
 /* =========================
