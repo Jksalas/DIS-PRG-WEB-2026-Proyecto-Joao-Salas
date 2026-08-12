@@ -3,12 +3,15 @@
 /* =========================
    RESET BÁSICO
 ========================= */
+/* Elimina los márgenes y rellenos predeterminados del navegador.
+   border-box mantiene el ancho declarado al agregar padding o bordes. */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Define la tipografía, los colores y el interlineado general del sitio. */
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--text);
@@ -19,11 +22,12 @@ body {
 /* =========================
    VARIABLES
 ========================= */
+/* Colores reutilizables para mantener una apariencia uniforme y facilitar
+   cambios futuros en la identidad visual de todas las páginas. */
 :root {
     --primary: #0056b3;
     --primary-dark: #003f88;
     --light-bg: #f2f4f7;
-    --section-gray: #e6e6e6;
     --text: #222;
     --white: #fff;
 }
@@ -31,12 +35,14 @@ body {
 /* =========================
    HEADER
 ========================= */
+/* Utiliza el color institucional como fondo del encabezado. */
 header {
     background-color: var(--primary);
     border-bottom: 1px solid #ddd;
     color: var(--white);
 }
 
+/* Organiza verticalmente el logotipo y las opciones de navegación. */
 nav {
     display: flex;
     flex-direction: column;
@@ -45,22 +51,26 @@ nav {
     gap: 15px;
 }
 
+/* Presenta los enlaces del menú en una fila y elimina sus viñetas. */
 nav ul {
     display: flex;
     list-style: none;
     gap: 20px;
 }
 
+/* Retira el subrayado predeterminado y mejora la lectura de los enlaces. */
 nav a {
     text-decoration: none;
     color: var(--white);
     font-weight: 500;
 }
 
+/* Proporciona retroalimentación visual al pasar el cursor por un enlace. */
 nav a:hover {
     color: #e0e0e0;
 }
 
+/* Mantiene un tamaño uniforme para el logotipo del encabezado. */
 .logo-header {
     width: 100px;
     height: 100px;
@@ -70,6 +80,8 @@ nav a:hover {
 /* =========================
    HERO
 ========================= */
+/* Adapta la imagen principal al ancho disponible. object-fit evita que la
+   imagen se deforme cuando debe ajustarse a la altura máxima. */
 .hero-image {
     width: 100%;
     max-height: 150px;
@@ -77,7 +89,7 @@ nav a:hover {
     object-fit:cover;
 }
 
-
+/* Destaca el primer párrafo de la sección de inicio como introducción. */
 #inicio p:first-of-type{
     font-size:1.2rem;
     color:var(--primary);
@@ -85,6 +97,7 @@ nav a:hover {
     margin-bottom:20px;
 }
 
+/* Limita el ancho y aumenta el interlineado del texto descriptivo principal. */
 #inicio p:last-of-type{
     color:var(--text);
     font-size:1rem;
@@ -95,21 +108,20 @@ nav a:hover {
 /* =========================
    SECCIONES GENERALES
 ========================= */
+/* Centra las secciones, limita su ancho y mantiene espacio interno uniforme. */
 section {
     padding: 30px 30px;
     max-width:1200px;
     margin:auto;
 }
 
+/* Crea una franja visual para separar grupos de contenido. */
 .section-separador {
     height: 50px;
     background-color:var(--primary);
 }
 
-.titulo-centrado{
-    text-align: center;
-}
-
+/* Evita que las imágenes sobrepasen el ancho de su contenedor. */
 img {
     max-width: 100%;
     height: auto;
@@ -118,7 +130,8 @@ img {
 /* =========================
    BOTONES
 ========================= */
-button, .btn {
+/* Define una apariencia uniforme para los botones HTML. */
+button {
     background-color: var(--primary);
     color: white;
     border: none;
@@ -129,7 +142,8 @@ button, .btn {
     border-radius: 5px;
 }
 
-button:hover, .btn:hover {
+/* Oscurece el botón para indicar que puede seleccionarse. */
+button:hover {
     background-color: var(--primary-dark);
 }
 
@@ -138,21 +152,25 @@ button:hover, .btn:hover {
 /* =========================
    FOOTER
 ========================= */
+/* Diferencia el pie de página mediante un fondo claro y contenido centrado. */
 footer {
     background-color: var(--light-bg);
     padding: 40px 20px;
     text-align: center;
 }
 
+/* Reduce el espacio de las secciones que están dentro del pie de página. */
 footer section {
     padding: 10px 0;
 }
 
+/* Centra horizontalmente las imágenes del pie de página. */
 footer img {
     display: block;
     margin: 0 auto;
 }
 
+/* Mantiene un tamaño uniforme para el logotipo del pie de página. */
 .logo-footer {
     width: 100px;
     height: 100px;
@@ -161,28 +179,34 @@ footer img {
 /* =========================
    LISTAS DE DEFINICIÓN
 ========================= */
+/* Separa la lista de definición del contenido que aparece antes de ella. */
 dl {
     margin-top: 20px;
 }
 
+/* Coloca cada término y su descripción en la misma línea. */
 dt,
 dd {
     display: inline;
 }
 
+/* Resalta el nombre de cada dato presentado. */
 dt {
     font-weight: 700;
     color: var(--text);
 }
 
+/* Agrega automáticamente los dos puntos después de cada término. */
 dt::after {
     content: ": ";
 }
 
+/* Elimina el margen predeterminado de las descripciones. */
 dd {
     margin: 0;
 }
 
+/* Fuerza un salto de línea y separa cada par de término y descripción. */
 dd::after {
     content: "";
     display: block;
@@ -194,6 +218,8 @@ dd::after {
    TABLAS
 ========================= */
 
+/* Permite que la tabla ocupe su contenedor y unifica sus bordes. El radio,
+   recorte y sombra crean una superficie visual independiente. */
 table {
     width: 100%;
     margin-top: 30px;
@@ -204,6 +230,7 @@ table {
     box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
 }
 
+/* Presenta el título de la tabla encima y alineado con la primera columna. */
 caption {
     caption-side: top;
     text-align: left;
@@ -214,47 +241,39 @@ caption {
     padding-left: 4px;
 }
 
+/* Diferencia los encabezados de columna con el color institucional. */
 thead {
     background: var(--primary);
     color: var(--white);
 }
 
+/* Aplica espacio y alineación uniforme a encabezados y datos. */
 th,
 td {
     padding: 18px 20px;
     text-align: left;
 }
 
+/* Separa visualmente cada registro de la tabla. */
 tbody tr {
     border-bottom: 1px solid #e6e6e6;
 }
 
+/* Evita mostrar una línea adicional después del último registro. */
 tbody tr:last-child {
     border-bottom: none;
 }
 
+/* Resalta la fila que el usuario está revisando con el cursor. */
 tbody tr:hover {
     background: var(--light-bg);
-}
-
-/* Enlaces de acciones */
-
-td a {
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
-    margin-right: 18px;
-}
-
-td a:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
 }
 
 /* =========================
    PERFIL DEL EGRESADO
 ========================= */
 
+/* Presenta cada sección del perfil como una tarjeta de contenido separada. */
 .perfil-egresado section {
     background-color: var(--light-bg);
     border-radius: 12px;

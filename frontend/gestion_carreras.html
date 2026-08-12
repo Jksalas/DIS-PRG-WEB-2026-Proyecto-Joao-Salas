@@ -70,16 +70,12 @@
                         Registrar carrera
                     </button>
 
-                    <button type="button" id="btnCancelarEdicion" hidden>
-                        Cancelar edición
-                    </button>
-
                 </fieldset>
 
             </form>
         </section>
 
-        <!-- LISTADO DE CARRERAS REGISTRADAS -->
+        <!-- LISTADO DE CARRERAS ALMACENADAS EN EL SERVIDOR -->
         <section>
             <h2>Carreras registradas</h2>
 
@@ -88,13 +84,16 @@
 
                 <thead>
                     <tr>
-                        <th>Carrera</th>
-                        <th>Acciones</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Fecha de creación</th>
                     </tr>
                 </thead>
 
-                <tbody id="lista-carreras">
-                    <!-- JavaScript insertará aquí las carreras -->
+                <tbody id="lista-carreras-servidor">
+                    <tr>
+                        <td colspan="3">Consulta al servidor pendiente.</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
